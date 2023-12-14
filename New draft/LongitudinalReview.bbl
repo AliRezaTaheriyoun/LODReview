@@ -1,0 +1,816 @@
+\begin{thebibliography}{74}
+\providecommand{\natexlab}[1]{#1}
+\providecommand{\url}[1]{\texttt{#1}}
+\expandafter\ifx\csname urlstyle\endcsname\relax
+  \providecommand{\doi}[1]{doi: #1}\else
+  \providecommand{\doi}{doi: \begingroup \urlstyle{rm}\Url}\fi
+
+\bibitem[Anders and Huber(2010)]{Anders2010}
+Simon Anders and Wolfgang Huber.
+\newblock Differential expression analysis for sequence count data.
+\newblock \emph{Genome Biology}, 11\penalty0 (10), October 2010.
+\newblock \doi{10.1186/gb-2010-11-10-r106}.
+\newblock URL \url{https://doi.org/10.1186/gb-2010-11-10-r106}.
+
+\bibitem[Ariyo et~al.(2021)Ariyo, Lesaffre, Verbeke, and Quintero]{Ariyo2021}
+Oludare Ariyo, Emmanuel Lesaffre, Geert Verbeke, and Adrian Quintero.
+\newblock Bayesian model selection for longitudinal count data.
+\newblock \emph{Sankhya B}, 84\penalty0 (2):\penalty0 516--547, November 2021.
+\newblock \doi{10.1007/s13571-021-00268-9}.
+\newblock URL \url{https://doi.org/10.1007/s13571-021-00268-9}.
+
+\bibitem[Bach et~al.(2021)Bach, Wever, van~de Wiel, Veltman, Hashemi, Kazemier,
+  Bahce, and Steenbergen]{Bach2021}
+Sander Bach, Birgit~M.M. Wever, Mark~A. van~de Wiel, Joris~D. Veltman,
+  Sayed~M.S. Hashemi, Geert Kazemier, Idris Bahce, and Renske~D.M. Steenbergen.
+\newblock Dynamics of methylated cell-free {DNA} in the urine of non-small cell
+  lung cancer patients.
+\newblock \emph{Epigenetics}, 17\penalty0 (10):\penalty0 1057--1069, October
+  2021.
+\newblock \doi{10.1080/15592294.2021.1982511}.
+\newblock URL \url{https://doi.org/10.1080/15592294.2021.1982511}.
+
+\bibitem[Bernardes et~al.(2020)Bernardes, Mishra, Tran, Bahmer, Best, Blase,
+  Bordoni, Franzenburg, Geisen, Josephs-Spaulding, K\"{o}hler, K\"{u}nstner,
+  Rosati, Aschenbrenner, Bacher, Baran, Boysen, Brandt, Bruse, D\"{o}rr,
+  Dr\"{a}ger, Elke, Ellinghaus, Fischer, Forster, Franke, Franzenburg, Frey,
+  Friedrichs, Fu{\ss}, Gl\"{u}ck, Hamm, Hinrichsen, Hoeppner, Imm, Junker,
+  Kaiser, Kan, Knoll, Lange, Laue, Lier, Lindner, Marinos, Markewitz,
+  Nattermann, Noth, Pickkers, Rabe, Renz, R\"{o}cken, Rupp, Schaffarzyk,
+  Scheffold, Schulte-Schrepping, Schunk, Skowasch, Ulas, Wandinger, Wittig,
+  Zimmermann, Busch, Hoyer, Kaleta, Heyckendorf, Kox, Rybniker, Schreiber,
+  Schultze, Rosenstiel, Banovich, Desai, Eickelberg, Haniffa, Horvath, Kropski,
+  Lafyatis, Lundeberg, Meyer, Nawijn, Nikolic, Montanes, Pe'er, Tata, Rawlins,
+  Regev, Reyfman, Samakovlis, Schultze, Shalek, Shepherd, Spence, Teichmann,
+  Theis, Tsankov, van~den Berge, von Papen, Whitsett, Zaragosi, Angelov, Bals,
+  Bartholom\"{a}us, Becker, Bezdan, Bonifacio, Bork, Clavel, Colme-Tatche,
+  Diefenbach, Dilthey, Fischer, F\"{o}rstner, Frick, Gagneur, Goesmann, Hain,
+  Hummel, Janssen, Kalinowski, Kallies, Kehr, Keller, Kim-Hellmuth, Klein,
+  Kohlbacher, Korbel, Kurth, Landthaler, Li, Ludwig, Makarewicz, Marz, McHardy,
+  Mertes, N\"{o}then, N\"{u}rnberg, Ohler, Ossowski, Overmann, Peter, Pfeffer,
+  Poetsch, P\"{u}hler, Rajewsky, Ralser, Rie{\ss}, Ripke, da~Rocha, Rosenstiel,
+  Saliba, Sander, Sawitzki, Schiffer, Schulte, Schultze, Sczyrba, Stegle,
+  Stoye, Theis, Vehreschild, Vogel, von Kleist, Walker, Walter, Wieczorek, and
+  Ziebuhr]{Bernardesetal2020}
+Joana~P. Bernardes, Neha Mishra, Florian Tran, Thomas Bahmer, Lena Best,
+  Johanna~I. Blase, Dora Bordoni, Jeanette Franzenburg, Ulf Geisen, Jonathan
+  Josephs-Spaulding, Philipp K\"{o}hler, Axel K\"{u}nstner, Elisa Rosati,
+  Anna~C. Aschenbrenner, Petra Bacher, Nathan Baran, Teide Boysen, Burkhard
+  Brandt, Niklas Bruse, Jonathan D\"{o}rr, Andreas Dr\"{a}ger, Gunnar Elke,
+  David Ellinghaus, Julia Fischer, Michael Forster, Andre Franke, S\"{o}ren
+  Franzenburg, Norbert Frey, Anette Friedrichs, Janina Fu{\ss}, Andreas
+  Gl\"{u}ck, Jacob Hamm, Finn Hinrichsen, Marc~P. Hoeppner, Simon Imm, Ralf
+  Junker, Sina Kaiser, Ying~H. Kan, Rainer Knoll, Christoph Lange, Georg Laue,
+  Clemens Lier, Matthias Lindner, Georgios Marinos, Robert Markewitz, Jacob
+  Nattermann, Rainer Noth, Peter Pickkers, Klaus~F. Rabe, Alina Renz, Christoph
+  R\"{o}cken, Jan Rupp, Annika Schaffarzyk, Alexander Scheffold, Jonas
+  Schulte-Schrepping, Domagoj Schunk, Dirk Skowasch, Thomas Ulas, Klaus-Peter
+  Wandinger, Michael Wittig, Johannes Zimmermann, Hauke Busch, Bimba~F. Hoyer,
+  Christoph Kaleta, Jan Heyckendorf, Matthijs Kox, Jan Rybniker, Stefan
+  Schreiber, Joachim~L. Schultze, Philip Rosenstiel, Nicholas~E. Banovich,
+  Tushar Desai, Oliver Eickelberg, Muzlifa Haniffa, Peter Horvath, Jonathan~A.
+  Kropski, Robert Lafyatis, Joakim Lundeberg, Kerstin Meyer, Martijn~C. Nawijn,
+  Marko Nikolic, Jose~Ordovas Montanes, Dana Pe'er, Purushothama~Rao Tata, Emma
+  Rawlins, Aviv Regev, Paul Reyfman, Christos Samakovlis, Joachim Schultze,
+  Alex Shalek, Douglas Shepherd, Jason Spence, Sarah Teichmann, Fabian Theis,
+  Alexander Tsankov, Maarten van~den Berge, Michael von Papen, Jeffrey
+  Whitsett, Laure~Emmanuelle Zaragosi, Angel Angelov, Robert Bals, Alexander
+  Bartholom\"{a}us, Anke Becker, Daniela Bezdan, Ezio Bonifacio, Peer Bork,
+  Thomas Clavel, Maria Colme-Tatche, Andreas Diefenbach, Alexander Dilthey,
+  Nicole Fischer, Konrad F\"{o}rstner, Julia-Stefanie Frick, Julien Gagneur,
+  Alexander Goesmann, Torsten Hain, Michael Hummel, Stefan Janssen, J\"{o}rn
+  Kalinowski, Ren{\'{e}} Kallies, Birte Kehr, Andreas Keller, Sarah
+  Kim-Hellmuth, Christoph Klein, Oliver Kohlbacher, Jan~O. Korbel, Ingo Kurth,
+  Markus Landthaler, Yang Li, Kerstin Ludwig, Oliwia Makarewicz, Manja Marz,
+  Alice McHardy, Christian Mertes, Markus N\"{o}then, Peter N\"{u}rnberg, Uwe
+  Ohler, Stephan Ossowski, J\"{o}rg Overmann, Silke Peter, Klaus Pfeffer,
+  Anna~R. Poetsch, Alfred P\"{u}hler, Niklaus Rajewsky, Markus Ralser, Olaf
+  Rie{\ss}, Stephan Ripke, Ulisses~Nunes da~Rocha, Philip Rosenstiel,
+  Antoine-Emmanuel Saliba, Leif~Erik Sander, Birgit Sawitzki, Philipp Schiffer,
+  Eva-Christina Schulte, Joachim~L. Schultze, Alexander Sczyrba, Oliver Stegle,
+  Jens Stoye, Fabian Theis, Janne Vehreschild, J\"{o}rg Vogel, Max von Kleist,
+  Andreas Walker, J\"{o}rn Walter, Dagmar Wieczorek, and John Ziebuhr.
+\newblock Longitudinal multi-omics analyses identify responses of
+  megakaryocytes, erythroid cells, and plasmablasts as hallmarks of severe
+  {COVID}-19.
+\newblock \emph{Immunity}, 53\penalty0 (6):\penalty0 1296--1314.e9, December
+  2020.
+\newblock \doi{10.1016/j.immuni.2020.11.017}.
+\newblock URL \url{https://doi.org/10.1016/j.immuni.2020.11.017}.
+
+\bibitem[Bian et~al.(2018)Bian, He, Hou, Cheng, and Qiu]{Bian2018}
+Yuanyuan Bian, Chong He, Jie Hou, Jianlin Cheng, and Jing Qiu.
+\newblock {PairedFB}: a full hierarchical bayesian model for paired {RNA}-seq
+  data with heterogeneous treatment effects.
+\newblock \emph{Bioinformatics}, 35\penalty0 (5):\penalty0 787--797, August
+  2018.
+\newblock \doi{10.1093/bioinformatics/bty731}.
+\newblock URL \url{https://doi.org/10.1093/bioinformatics/bty731}.
+
+\bibitem[Blei et~al.(2017)Blei, Kucukelbir, and McAuliffe]{Blei2017}
+David~M. Blei, Alp Kucukelbir, and Jon~D. McAuliffe.
+\newblock Variational inference: a review for statisticians.
+\newblock \emph{J. Amer. Statist. Assoc.}, 112\penalty0 (518):\penalty0
+  859--877, 2017.
+\newblock ISSN 0162-1459.
+\newblock \doi{10.1080/01621459.2017.1285773}.
+\newblock URL \url{https://doi.org/10.1080/01621459.2017.1285773}.
+
+\bibitem[Bodein et~al.(2021)Bodein, Scott-Boyer, Perin, Cao, and
+  Droit]{Bodeinetal2021}
+Antoine Bodein, Marie-Pier Scott-Boyer, Olivier Perin, Kim-Anh~L{\^{e}} Cao,
+  and Arnaud Droit.
+\newblock {timeOmics}: an r package for longitudinal multi-omics data
+  integration.
+\newblock \emph{Bioinformatics}, 38\penalty0 (2):\penalty0 577--579, September
+  2021.
+\newblock \doi{10.1093/bioinformatics/btab664}.
+\newblock URL \url{https://doi.org/10.1093/bioinformatics/btab664}.
+
+\bibitem[Breslow and Clayton(1993)]{Breslow1993}
+N.~E. Breslow and D.~G. Clayton.
+\newblock Approximate inference in generalized linear mixed models.
+\newblock \emph{Journal of the American Statistical Association}, 88\penalty0
+  (421):\penalty0 9, March 1993.
+\newblock ISSN 0162-1459.
+\newblock \doi{10.2307/2290687}.
+\newblock URL \url{http://dx.doi.org/10.2307/2290687}.
+
+\bibitem[Bürkner(2021)]{brms2021}
+Paul-Christian Bürkner.
+\newblock Bayesian item response modeling in {R} with {brms} and {Stan}.
+\newblock \emph{Journal of Statistical Software}, 100\penalty0 (5):\penalty0
+  1--54, 2021.
+\newblock \doi{10.18637/jss.v100.i05}.
+
+\bibitem[Chen and Li(2016)]{ChenLi2016}
+Eric~Z. Chen and Hongzhe Li.
+\newblock A two-part mixed-effects model for analyzing longitudinal microbiome
+  compositional data.
+\newblock \emph{Bioinformatics}, 32\penalty0 (17):\penalty0 2611--2617, May
+  2016.
+\newblock \doi{10.1093/bioinformatics/btw308}.
+\newblock URL \url{https://doi.org/10.1093/bioinformatics/btw308}.
+
+\bibitem[Cheng et~al.(2019)Cheng, Ramchandran, Vatanen, Lietz{\'{e}}n,
+  Lahesmaa, Vehtari, and L\"{a}hdesm\"{a}ki]{Chengetal2019}
+Lu~Cheng, Siddharth Ramchandran, Tommi Vatanen, Niina Lietz{\'{e}}n, Riitta
+  Lahesmaa, Aki Vehtari, and Harri L\"{a}hdesm\"{a}ki.
+\newblock An additive gaussian process regression model for interpretable
+  non-parametric analysis of longitudinal data.
+\newblock \emph{Nature Communications}, 10\penalty0 (1), April 2019.
+\newblock \doi{10.1038/s41467-019-09785-8}.
+\newblock URL \url{https://doi.org/10.1038/s41467-019-09785-8}.
+
+\bibitem[Colosimo et~al.(2012)Colosimo, Fausto, Freitas, and
+  Pinto]{Colosimo2012}
+Enrico~A. Colosimo, Maria~Arlene Fausto, Marta~Afonso Freitas, and
+  Jorge~Andrade Pinto.
+\newblock Practical modeling strategies for unbalanced longitudinal data
+  analysis.
+\newblock \emph{J. Appl. Stat.}, 39\penalty0 (9):\penalty0 2005--2013, 2012.
+\newblock ISSN 0266-4763.
+\newblock \doi{10.1080/02664763.2012.699954}.
+\newblock URL \url{https://doi.org/10.1080/02664763.2012.699954}.
+
+\bibitem[de~la Cruz-Mes\'{i}a and Quintana(2007)]{delaCruzMesia2007}
+Rolando. de~la Cruz-Mes\'{i}a and Fernando~A. Quintana.
+\newblock A model-based approach to {B}ayesian classification with applications
+  to predicting pregnancy outcomes from longitudinal $\beta$-h{CG} profiles.
+\newblock \emph{Biostatistics}, 8\penalty0 (2):\penalty0 228--238, 04 2007.
+\newblock ISSN 1465-4644.
+\newblock \doi{10.1093/biostatistics/kxl003}.
+\newblock URL \url{https://doi.org/10.1093/biostatistics/kxl003}.
+
+\bibitem[Diggle et~al.(2013)Diggle, Heagerty, Liang, and
+  Zeger]{DiggleHeagertyLiang2013}
+Peter~J. Diggle, Patrick~J. Heagerty, Kung-Yee Liang, and Scott~L. Zeger.
+\newblock \emph{Analysis of longitudinal data}, volume~25 of \emph{Oxford
+  Statistical Science Series}.
+\newblock Oxford University Press, Oxford, second edition, 2013.
+\newblock ISBN 978-0-19-967675-0.
+
+\bibitem[Ding et~al.(2019)Ding, Ahangari, Espinoza, Chhabra, Nicola, Yan, Lal,
+  Hagood, Kaminski, Bar-Joseph, and Ambalavanan]{Dingetal2019}
+Jun Ding, Farida Ahangari, Celia~R. Espinoza, Divya Chhabra, Teodora Nicola,
+  Xiting Yan, Charitharth~V. Lal, James~S. Hagood, Naftali Kaminski, Ziv
+  Bar-Joseph, and Namasivayam Ambalavanan.
+\newblock Integrating multiomics longitudinal data to reconstruct networks
+  underlying lung development.
+\newblock \emph{American Journal of Physiology-Lung Cellular and Molecular
+  Physiology}, 317\penalty0 (5):\penalty0 L556--L568, November 2019.
+\newblock \doi{10.1152/ajplung.00554.2018}.
+\newblock URL \url{https://doi.org/10.1152/ajplung.00554.2018}.
+
+\bibitem[Duvenaud et~al.(2011)Duvenaud, Nickisch, and
+  Rasmussen]{Duvenaudetal2011}
+David Duvenaud, Hannes Nickisch, and Carl~Edward Rasmussen.
+\newblock Additive gaussian processes.
+\newblock In \emph{Proceedings of the 24th International Conference on Neural
+  Information Processing Systems}, NIPS'11, page 226–234, Red Hook, NY, USA,
+  2011. Curran Associates Inc.
+\newblock ISBN 9781618395993.
+
+\bibitem[Engstr\"{o}m et~al.(2012)Engstr\"{o}m, Tommei, Stricker, Ender,
+  Pollard, and Bertone]{Engstrm2012}
+P\"{a}r~G Engstr\"{o}m, Diva Tommei, Stefan~H Stricker, Christine Ender,
+  Steven~M Pollard, and Paul Bertone.
+\newblock Digital transcriptome profiling of normal and glioblastoma-derived
+  neural stem cells identifies genes associated with patient survival.
+\newblock \emph{Genome Medicine}, 4\penalty0 (10):\penalty0 76, 2012.
+\newblock \doi{10.1186/gm377}.
+\newblock URL \url{https://doi.org/10.1186/gm377}.
+
+\bibitem[Fischer et~al.(2018)Fischer, Theis, and Yosef]{Fischer2018}
+David~S Fischer, Fabian~J Theis, and Nir Yosef.
+\newblock Impulse model-based differential expression analysis of time course
+  sequencing data.
+\newblock \emph{Nucleic Acids Research}, August 2018.
+\newblock \doi{10.1093/nar/gky675}.
+\newblock URL \url{https://doi.org/10.1093/nar/gky675}.
+
+\bibitem[Fitzmaurice et~al.(2008)Fitzmaurice, Davidian, Verbeke, and
+  Molenberghs]{Fitzmaurice2008}
+Garrett Fitzmaurice, Marie Davidian, Geert Verbeke, and Geert Molenberghs,
+  editors.
+\newblock \emph{Longitudinal Data Analysis}.
+\newblock Chapman and Hall/{CRC}, August 2008.
+\newblock \doi{10.1201/9781420011579}.
+\newblock URL \url{https://doi.org/10.1201/9781420011579}.
+
+\bibitem[Ghosh et~al.(2010)Ghosh, Ghosh, and Tiwari]{Ghosh2010}
+Pulak Ghosh, Kaushik Ghosh, and Ram~C. Tiwari.
+\newblock Joint modeling of longitudinal data and informative dropout time in
+  the presence of multiple changepoints.
+\newblock \emph{Statistics in Medicine}, 30\penalty0 (6):\penalty0 611--626,
+  November 2010.
+\newblock \doi{10.1002/sim.4119}.
+\newblock URL \url{https://doi.org/10.1002/sim.4119}.
+
+\bibitem[Ghosh et~al.(2011)Ghosh, Ghosh, and Tiwari]{Ghosh2011}
+Pulak Ghosh, Kaushik Ghosh, and Ram~C. Tiwari.
+\newblock Joint modeling of longitudinal data and informative dropout time in
+  the presence of multiple changepoints.
+\newblock \emph{Stat. Med.}, 30\penalty0 (6):\penalty0 611--626, 2011.
+\newblock ISSN 0277-6715.
+\newblock \doi{10.1002/sim.4119}.
+\newblock URL \url{https://doi.org/10.1002/sim.4119}.
+
+\bibitem[Hammer et~al.(2002)Hammer, Vaida, Bennett, Holohan, Sheiner, Eron,
+  Wheat, Mitsuyasu, Gulick, Valentine, Aberg, Rogers, Karol, Saah, Lewis,
+  Bessen, Brosgart, DeGruttola, Mellors, and Team]{Hammer2002}
+S.~M. Hammer, F.~Vaida, K.~K. Bennett, M.~K. Holohan, L.~Sheiner, J.~J. Eron,
+  L.~J. Wheat, R.~T. Mitsuyasu, R.~M. Gulick, F.~T. Valentine, J.~A. Aberg,
+  M.~D. Rogers, C.~N. Karol, A.~J. Saah, R.~H. Lewis, L.~J. Bessen,
+  C.~Brosgart, V.~DeGruttola, J.~W. Mellors, and AIDS Clinical Trials Group
+  398~Study Team.
+\newblock Dual vs single protease inhibitor therapy following antiretroviral
+  treatment failure: A randomized trial.
+\newblock \emph{JAMA}, 288\penalty0 (2):\penalty0 169--180, 07 2002.
+\newblock ISSN 0098-7484.
+\newblock \doi{10.1001/jama.288.2.169}.
+\newblock URL \url{https://doi.org/10.1001/jama.288.2.169}.
+
+\bibitem[Hastie et~al.(2009)Hastie, Tibshirani, and Friedman]{ELSII}
+Trevor Hastie, Robert Tibshirani, and Jerome Friedman.
+\newblock \emph{The elements of statistical learning}.
+\newblock Springer Series in Statistics. Springer, New York, second edition,
+  2009.
+\newblock ISBN 978-0-387-84857-0.
+\newblock \doi{10.1007/978-0-387-84858-7}.
+\newblock URL \url{https://doi.org/10.1007/978-0-387-84858-7}.
+\newblock Data mining, inference, and prediction.
+
+\bibitem[Hu and Szymczak(2023)]{HuSzymczak2023}
+Jianchang Hu and Silke Szymczak.
+\newblock A review on longitudinal data analysis with random forest.
+\newblock \emph{Briefings in Bioinformatics}, 24\penalty0 (2), January 2023.
+\newblock \doi{10.1093/bib/bbad002}.
+\newblock URL \url{https://doi.org/10.1093/bib/bbad002}.
+
+\bibitem[Huang and Fitzmaurice(2005)]{HuangFitzmaurice2005}
+Wenzheng Huang and Garrett~M. Fitzmaurice.
+\newblock Analysis of longitudinal data unbalanced over time.
+\newblock \emph{J. R. Stat. Soc. Ser. B Stat. Methodol.}, 67\penalty0
+  (1):\penalty0 135--155, 2005.
+\newblock ISSN 1369-7412.
+\newblock \doi{10.1111/j.1467-9868.2005.00492.x}.
+\newblock URL \url{https://doi.org/10.1111/j.1467-9868.2005.00492.x}.
+
+\bibitem[Huque et~al.(2018)Huque, Carlin, Simpson, and Lee]{Huque2018}
+Md~Hamidul Huque, John~B. Carlin, Julie~A. Simpson, and Katherine~J. Lee.
+\newblock A comparison of multiple imputation methods for missing data in
+  longitudinal studies.
+\newblock \emph{BMC Medical Research Methodology}, 18\penalty0 (1), December
+  2018.
+\newblock ISSN 1471-2288.
+\newblock \doi{10.1186/s12874-018-0615-6}.
+\newblock URL \url{http://dx.doi.org/10.1186/s12874-018-0615-6}.
+
+\bibitem[Josse et~al.(2023)Josse, Mayer, Tierney, and Vialaneix]{Josse2023}
+Julie Josse, Imke Mayer, Nicholas Tierney, and Nathalie Vialaneix.
+\newblock {CRAN} {T}ask {V}iew: {M}issing {D}ata. version 2023-11-13, 2023.
+\newblock URL \url{URL https://CRAN.R-project.org/view=MissingData}.
+
+\bibitem[Kasowski et~al.(2010)Kasowski, Grubert, Heffelfinger, Hariharan,
+  Asabere, Waszak, Habegger, Rozowsky, Shi, Urban, Hong, Karczewski, Huber,
+  Weissman, Gerstein, Korbel, and Snyder]{Kasowski2010}
+Maya Kasowski, Fabian Grubert, Christopher Heffelfinger, Manoj Hariharan,
+  Akwasi Asabere, Sebastian~M. Waszak, Lukas Habegger, Joel Rozowsky, Minyi
+  Shi, Alexander~E. Urban, Mi-Young Hong, Konrad~J. Karczewski, Wolfgang Huber,
+  Sherman~M. Weissman, Mark~B. Gerstein, Jan~O. Korbel, and Michael Snyder.
+\newblock Variation in transcription factor binding among humans.
+\newblock \emph{Science}, 328\penalty0 (5975):\penalty0 232--235, April 2010.
+\newblock \doi{10.1126/science.1183621}.
+\newblock URL \url{https://doi.org/10.1126/science.1183621}.
+
+\bibitem[Knudson et~al.(2021)Knudson, Benson, Geyer, and Jones]{Knudson2021}
+Christina Knudson, Sydney Benson, Charles Geyer, and Galin Jones.
+\newblock Likelihood-based inference for generalized linear mixed models:
+  inference with the \texttt{R} package \texttt{glmm}.
+\newblock \emph{Stat}, 10:\penalty0 Paper No. e339, 9, 2021.
+\newblock \doi{10.1002/sta4.339}.
+\newblock URL \url{https://doi.org/10.1002/sta4.339}.
+
+\bibitem[Kodikara et~al.(2022)Kodikara, Ellul, and Cao]{Kodikaraetal2022}
+Saritha Kodikara, Susan Ellul, and Kim-Anh~L{\^{e}} Cao.
+\newblock Statistical challenges in longitudinal microbiome data analysis.
+\newblock \emph{Briefings in Bioinformatics}, 23\penalty0 (4), July 2022.
+\newblock \doi{10.1093/bib/bbac273}.
+\newblock URL \url{https://doi.org/10.1093/bib/bbac273}.
+
+\bibitem[Lai and Small(2007)]{LaiSmall2007}
+Tze~Leung Lai and Dylan Small.
+\newblock Marginal regression analysis of longitudinal data with time-dependent
+  covariates: a generalized method-of-moments approach.
+\newblock \emph{J. R. Stat. Soc. Ser. B Stat. Methodol.}, 69\penalty0
+  (1):\penalty0 79--99, 2007.
+\newblock ISSN 1369-7412.
+\newblock \doi{10.1111/j.1467-9868.2007.00578.x}.
+\newblock URL \url{https://doi.org/10.1111/j.1467-9868.2007.00578.x}.
+
+\bibitem[Laird(1988)]{Laird1988}
+Nan~M. Laird.
+\newblock Missing data in longitudinal studies.
+\newblock \emph{Statistics in Medicine}, 7\penalty0 (1–2):\penalty0
+  305–315, January 1988.
+\newblock ISSN 1097-0258.
+\newblock \doi{10.1002/sim.4780070131}.
+\newblock URL \url{http://dx.doi.org/10.1002/sim.4780070131}.
+
+\bibitem[Laird and Ware(1982)]{LairdWare}
+Nan~M. Laird and James~H. Ware.
+\newblock Random-effects models for longitudinal data.
+\newblock \emph{Biometrics}, 38\penalty0 (4):\penalty0 963--974, 1982.
+\newblock ISSN 0006341X, 15410420.
+\newblock URL \url{http://www.jstor.org/stable/2529876}.
+
+\bibitem[Lavalley and DeGruttola(1996)]{LAVALLEY1996}
+Michael~P. Lavalley and Victor DeGruttola.
+\newblock Models for empirical {B}ayes estimators of longitudinal {CD}4 counts.
+\newblock \emph{Statistics in Medicine}, 15\penalty0 (21):\penalty0 2289--2305,
+  November 1996.
+\newblock
+  \doi{10.1002/(sici)1097-0258(19961115)15:21<2289::aid-sim449>3.0.co;2-i}.
+\newblock URL
+  \url{https://doi.org/10.1002/(sici)1097-0258(19961115)15:21<2289::aid-sim449>3.0.co;2-i}.
+
+\bibitem[Little and Rubin(2002)]{LittleRubin2002}
+Roderick J.~A. Little and Donald~B. Rubin.
+\newblock \emph{Statistical analysis with missing data}.
+\newblock Wiley Series in Probability and Statistics. Wiley-Interscience [John
+  Wiley \& Sons], Hoboken, NJ, second edition, 2002.
+\newblock ISBN 0-471-18386-5.
+\newblock \doi{10.1002/9781119013563}.
+\newblock URL \url{https://doi.org/10.1002/9781119013563}.
+
+\bibitem[Liu et~al.(2018)Liu, Bramer, Webb-Robertson, Waugh, Rewers, and
+  Zhang]{Liu2018}
+Chih-Wei Liu, Lisa Bramer, Bobbie-Jo Webb-Robertson, Kathleen Waugh, Marian~J.
+  Rewers, and Qibin Zhang.
+\newblock Temporal expression profiling of plasma proteins reveals oxidative
+  stress in early stages of {T}ype 1 {D}iabetes progression.
+\newblock \emph{Journal of Proteomics}, 172:\penalty0 100–110, February 2018.
+\newblock ISSN 1874-3919.
+\newblock \doi{10.1016/j.jprot.2017.10.004}.
+\newblock URL \url{http://dx.doi.org/10.1016/j.jprot.2017.10.004}.
+
+\bibitem[Love et~al.(2014)Love, Huber, and Anders]{Love2014}
+Michael~I Love, Wolfgang Huber, and Simon Anders.
+\newblock Moderated estimation of fold change and dispersion for {RNA}-seq data
+  with {DESeq}2.
+\newblock \emph{Genome Biology}, 15\penalty0 (12), December 2014.
+\newblock \doi{10.1186/s13059-014-0550-8}.
+\newblock URL \url{https://doi.org/10.1186/s13059-014-0550-8}.
+
+\bibitem[Marchetti-Bowick et~al.(2016)Marchetti-Bowick, Yin, Howrylak, and
+  Xing]{MarchettiBowick2016}
+Micol Marchetti-Bowick, Junming Yin, Judie~A. Howrylak, and Eric~P. Xing.
+\newblock A time-varying group sparse additive model for genome-wide
+  association studies of dynamic complex traits.
+\newblock \emph{Bioinformatics}, 32\penalty0 (19):\penalty0 2903--2910, June
+  2016.
+\newblock \doi{10.1093/bioinformatics/btw347}.
+\newblock URL \url{https://doi.org/10.1093/bioinformatics/btw347}.
+
+\bibitem[Mars et~al.(2020)Mars, Yang, Ward, Houtti, Priya, Lekatz, Tang, Sun,
+  Kalari, Korem, Bhattarai, Zheng, Bar, Frost, Johnson, van Treuren, Han,
+  Ordog, Grover, Sonnenburg, D'Amato, Camilleri, Elinav, Segal, Blekhman,
+  Farrugia, Swann, Knights, and Kashyap]{Marsetal2020}
+Ruben~A.T. Mars, Yi~Yang, Tonya Ward, Mo~Houtti, Sambhawa Priya, Heather~R.
+  Lekatz, Xiaojia Tang, Zhifu Sun, Krishna~R. Kalari, Tal Korem, Yogesh
+  Bhattarai, Tenghao Zheng, Noam Bar, Gary Frost, Abigail~J. Johnson, Will van
+  Treuren, Shuo Han, Tamas Ordog, Madhusudan Grover, Justin Sonnenburg, Mauro
+  D'Amato, Michael Camilleri, Eran Elinav, Eran Segal, Ran Blekhman, Gianrico
+  Farrugia, Jonathan~R. Swann, Dan Knights, and Purna~C. Kashyap.
+\newblock Longitudinal multi-omics reveals subset-specific mechanisms
+  underlying irritable bowel syndrome.
+\newblock \emph{Cell}, 182\penalty0 (6):\penalty0 1460--1473.e17, September
+  2020.
+\newblock \doi{10.1016/j.cell.2020.08.007}.
+\newblock URL \url{https://doi.org/10.1016/j.cell.2020.08.007}.
+
+\bibitem[Marshall and Bar\'{o}n(2000)]{Marshall2000}
+Guillermo Marshall and Anna~E. Bar\'{o}n.
+\newblock Linear discriminant models for unbalanced longitudinal data.
+\newblock \emph{Statistics in Medicine}, 19\penalty0 (15):\penalty0 1969--1981,
+  2000.
+\newblock \doi{10.1002/1097-0258(20000815)19:15<1969::aid-sim515>3.0.co;2-y}.
+\newblock URL
+  \url{https://doi.org/10.1002/1097-0258(20000815)19:15<1969::aid-sim515>3.0.co;2-y}.
+
+\bibitem[Marshall et~al.(2009)Marshall, De~la Cruz-Mes\'{\i}a, Quintana, and
+  Bar\'{o}n]{Marshall2009}
+Guillermo Marshall, Rolando De~la Cruz-Mes\'{\i}a, Fernando~A. Quintana, and
+  Anna~E. Bar\'{o}n.
+\newblock Discriminant analysis for longitudinal data with multiple continuous
+  responses and possibly missing data.
+\newblock \emph{Biometrics}, 65\penalty0 (1):\penalty0 69--80, 2009.
+\newblock ISSN 0006-341X.
+\newblock \doi{10.1111/j.1541-0420.2008.01016.x}.
+\newblock URL \url{https://doi.org/10.1111/j.1541-0420.2008.01016.x}.
+
+\bibitem[McKennan and Nicolae(2022)]{McKennanNicolae2022}
+Chris McKennan and Dan Nicolae.
+\newblock Estimating and accounting for unobserved covariates in
+  high-dimensional correlated data.
+\newblock \emph{J. Amer. Statist. Assoc.}, 117\penalty0 (537):\penalty0
+  225--236, 2022.
+\newblock ISSN 0162-1459.
+\newblock \doi{10.1080/01621459.2020.1769635}.
+\newblock URL \url{https://doi.org/10.1080/01621459.2020.1769635}.
+
+\bibitem[Metwally et~al.(2022)Metwally, Zhang, Wu, Kellogg, Zhou, Contrepois,
+  Tang, and Snyder]{Metwallyetal2022}
+Ahmed~A Metwally, Tom Zhang, Si~Wu, Ryan Kellogg, Wenyu Zhou, Kevin Contrepois,
+  Hua Tang, and Michael Snyder.
+\newblock Robust identification of temporal biomarkers in longitudinal omics
+  studies.
+\newblock \emph{Bioinformatics}, 38\penalty0 (15):\penalty0 3802--3811, June
+  2022.
+\newblock \doi{10.1093/bioinformatics/btac403}.
+\newblock URL \url{https://doi.org/10.1093/bioinformatics/btac403}.
+
+\bibitem[Mishra et~al.(2022)Mishra, Aden, Blase, Baran, Bordoni, Tran, Conrad,
+  Avalos, Jaeckel, Scherer, S{\o}rensen, Overgaard, Schulte, Nikolaus, Rey,
+  Gasparoni, Lyons, Schultze, Walter, Andersen, Banos, Bertsias, Beyer,
+  Boumpas, Finckh, Franke, Georges, Gu, H\"{a}sler, Jawhara, Kenyon, Kratsch,
+  Krause, Lauc, Mangino, Natoli, Ostaszewski, Pezer, Raes, Rahmouni,
+  Ramos-Pamplona, Reiz, Rosati, Sanoudou, Satagopam, Schneider,
+  Schulte-Schrepping, Sidiropoulos, Smith, Spector, Vandeputte, Vieira-Silva,
+  Vojta, Warnat-Herresthal, Zoldo{\v{s}}, Dermitzakis, Schreiber, and
+  and]{Mishraetal2022}
+Neha Mishra, Konrad Aden, Johanna~I. Blase, Nathan Baran, Dora Bordoni, Florian
+  Tran, Claudio Conrad, Diana Avalos, Charlot Jaeckel, Michael Scherer,
+  Signe~B. S{\o}rensen, Silja~H. Overgaard, Berenice Schulte, Susanna Nikolaus,
+  Guillaume Rey, Gilles Gasparoni, Paul~A. Lyons, Joachim~L. Schultze, J\"{o}rn
+  Walter, Vibeke Andersen, Aggelos Banos, George Bertsias, Marc Beyer,
+  Dimitrios Boumpas, Axel Finckh, Andre Franke, Michel Georges, Wei Gu, Robert
+  H\"{a}sler, Mohamad Jawhara, Amy Kenyon, Christina Kratsch, Roland Krause,
+  Gordan Lauc, Massimo Mangino, Gioacchino Natoli, Marek Ostaszewski, Marija
+  Pezer, Jeroen Raes, Souad Rahmouni, Marilou Ramos-Pamplona, Benedikt Reiz,
+  Elisa Rosati, Despina Sanoudou, Venkata Satagopam, Reinhard Schneider, Jonas
+  Schulte-Schrepping, Prodromos Sidiropoulos, Kenneth G.~C. Smith, Timothy
+  Spector, Doris Vandeputte, Sara Vieira-Silva, Aleksandar Vojta, Stefanie
+  Warnat-Herresthal, Vlatka Zoldo{\v{s}}, Emmanouil~T. Dermitzakis, Stefan
+  Schreiber, and Philip~Rosenstiel and.
+\newblock Longitudinal multi-omics analysis identifies early blood-based
+  predictors of anti-{TNF} therapy response in inflammatory bowel disease.
+\newblock \emph{Genome Medicine}, 14\penalty0 (1), September 2022.
+\newblock \doi{10.1186/s13073-022-01112-z}.
+\newblock URL \url{https://doi.org/10.1186/s13073-022-01112-z}.
+
+\bibitem[Mor et~al.(2022)Mor, Cohen, Vald{\'{e}}s-Mas, Kviatcovsky, Elinav, and
+  Avron]{Moretal2022}
+Uria Mor, Yotam Cohen, Rafael Vald{\'{e}}s-Mas, Denise Kviatcovsky, Eran
+  Elinav, and Haim Avron.
+\newblock Dimensionality reduction of longitudinal 'omics data using modern
+  tensor factorizations.
+\newblock \emph{{PLOS} Computational Biology}, 18\penalty0 (7):\penalty0
+  e1010212, July 2022.
+\newblock \doi{10.1371/journal.pcbi.1010212}.
+\newblock URL \url{https://doi.org/10.1371/journal.pcbi.1010212}.
+
+\bibitem[Nagalakshmi et~al.(2008)Nagalakshmi, Wang, Waern, Shou, Raha,
+  Gerstein, and Snyder]{Nagalakshmi2008}
+Ugrappa Nagalakshmi, Zhong Wang, Karl Waern, Chong Shou, Debasish Raha, Mark
+  Gerstein, and Michael Snyder.
+\newblock The transcriptional landscape of the yeast genome defined by {RNA}
+  sequencing.
+\newblock \emph{Science}, 320\penalty0 (5881):\penalty0 1344--1349, June 2008.
+\newblock \doi{10.1126/science.1158441}.
+\newblock URL \url{https://doi.org/10.1126/science.1158441}.
+
+\bibitem[Plate(1999)]{Plate1999}
+Tony~A. Plate.
+\newblock Accuracy versus interpretability in flexible modeling: Implementing a
+  tradeoff using gaussian process models.
+\newblock \emph{Behaviormetrika}, 26\penalty0 (1):\penalty0 29--50, January
+  1999.
+\newblock \doi{10.2333/bhmk.26.29}.
+\newblock URL \url{https://doi.org/10.2333/bhmk.26.29}.
+
+\bibitem[Ring et~al.(2022)Ring, Couper, Sapiro, Yarza, Yang, Clay, Mateusiak,
+  Chou, and Swei]{Ring2022}
+Kacie Ring, Lisa~I. Couper, Anne~L. Sapiro, Fauna Yarza, X.~Frank Yang, Keith
+  Clay, Chase Mateusiak, Seemay Chou, and Andrea Swei.
+\newblock Host blood meal identity modifies vector gene expression and
+  competency.
+\newblock \emph{Molecular Ecology}, 31\penalty0 (9):\penalty0 2698–2711,
+  March 2022.
+\newblock ISSN 1365-294X.
+\newblock \doi{10.1111/mec.16413}.
+\newblock URL \url{http://dx.doi.org/10.1111/mec.16413}.
+
+\bibitem[Rizopoulos(2010)]{Rizopoulos2010}
+Dimitris Rizopoulos.
+\newblock Jm: An r package for the joint modelling of longitudinal and
+  time-to-event data.
+\newblock \emph{Journal of Statistical Software}, 35\penalty0 (9):\penalty0
+  1–33, 2010.
+\newblock \doi{10.18637/jss.v035.i09}.
+\newblock URL
+  \url{https://www.jstatsoft.org/index.php/jss/article/view/v035i09}.
+
+\bibitem[Rizopoulos(2016)]{Rizopoulos2016}
+Dimitris Rizopoulos.
+\newblock The r package jmbayes for fitting joint models for longitudinal and
+  time-to-event data using mcmc.
+\newblock \emph{Journal of Statistical Software}, 72\penalty0 (7):\penalty0
+  1–46, 2016.
+\newblock \doi{10.18637/jss.v072.i07}.
+\newblock URL
+  \url{https://www.jstatsoft.org/index.php/jss/article/view/v072i07}.
+
+\bibitem[Robert(2007)]{Robert2007}
+Christian~P. Robert.
+\newblock \emph{The {B}ayesian choice}.
+\newblock Springer Texts in Statistics. Springer, New York, second edition,
+  2007.
+\newblock ISBN 978-0-387-71598-8.
+\newblock From decision-theoretic foundations to computational implementation.
+
+\bibitem[Rose et~al.(2019)Rose, Contrepois, Moneghetti, Zhou, Mishra, Mataraso,
+  Dagan-Rosenfeld, Ganz, Dunn, Hornburg, Rego, Perelman, Ahadi, Sailani, Zhou,
+  Leopold, Chen, Ashland, Christle, Avina, Limcaoco, Ruiz, Tan, Butte,
+  Weinstock, Slavich, Sodergren, McLaughlin, Haddad, and
+  Snyder]{SchsslerFiorenzaRoseetal2019}
+Sophia Miryam Sch\"{u}ssler-Fiorenza Rose, K{\'{e}}vin Contrepois, Kegan~J.
+  Moneghetti, Wenyu Zhou, Tejaswini Mishra, Samson Mataraso, Orit
+  Dagan-Rosenfeld, Ariel~B. Ganz, Jessilyn Dunn, Daniel Hornburg, Shannon Rego,
+  Dalia Perelman, Sara Ahadi, M.~Reza Sailani, Yanjiao Zhou, Shana~R. Leopold,
+  Jieming Chen, Melanie Ashland, Jeffrey~W. Christle, Monika Avina, Patricia
+  Limcaoco, Camilo Ruiz, Marilyn Tan, Atul~J. Butte, George~M. Weinstock,
+  George~M. Slavich, Erica Sodergren, Tracey~L. McLaughlin, Francois Haddad,
+  and Michael~P. Snyder.
+\newblock A longitudinal big data approach for precision health.
+\newblock \emph{Nature Medicine}, 25\penalty0 (5):\penalty0 792--804, May 2019.
+\newblock \doi{10.1038/s41591-019-0414-6}.
+\newblock URL \url{https://doi.org/10.1038/s41591-019-0414-6}.
+
+\bibitem[Ross et~al.(2022)Ross, Rahnavard, and Lloyd-Price]{waveome}
+Allen Ross, Ali Rahnavard, and Jason Lloyd-Price.
+\newblock Representation learning with {G}aussian processes in sparse
+  irregularly sampled longitudinal metabolomics.
+\newblock In \emph{In Proceedings of the American Statistical Association Joint
+  Statistical Meetings}, page 226–234, Section on Statistical Methods in
+  Handling Longitudinal Data and Temporal Effect,Washington, DC, USA, 2022.
+
+\bibitem[Seedorff et~al.(2022)Seedorff, Brown, Scorza, and
+  Petersen]{Seedorff2022}
+Nicholas Seedorff, Grant Brown, Breanna Scorza, and Christine~A. Petersen.
+\newblock Joint bayesian longitudinal models for mixed outcome types and
+  associated model selection techniques.
+\newblock \emph{Computational Statistics}, September 2022.
+\newblock \doi{10.1007/s00180-022-01280-x}.
+\newblock URL \url{https://doi.org/10.1007/s00180-022-01280-x}.
+
+\bibitem[Singer and Willett(2003)]{Singer2003}
+Judith~D. Singer and John~B. Willett.
+\newblock \emph{Applied Longitudinal Data Analysis}.
+\newblock Oxford University {PressNew} York, May 2003.
+\newblock \doi{10.1093/acprof:oso/9780195152968.001.0001}.
+\newblock URL \url{https://doi.org/10.1093/acprof:oso/9780195152968.001.0001}.
+
+\bibitem[Sorensen et~al.(2016)Sorensen, Hohenstein, and Vasishth]{Sorensen2016}
+Tanner Sorensen, Sven Hohenstein, and Shravan Vasishth.
+\newblock Bayesian linear mixed models using stan: A tutorial for
+  psychologists, linguists, and cognitive scientists.
+\newblock \emph{The Quantitative Methods for Psychology}, 12\penalty0
+  (3):\penalty0 175--200, October 2016.
+\newblock \doi{10.20982/tqmp.12.3.p175}.
+\newblock URL \url{https://doi.org/10.20982/tqmp.12.3.p175}.
+
+\bibitem[Sperisen et~al.(2015)Sperisen, Cominetti, and
+  Martin]{Sperisenetal2015}
+Peter Sperisen, Ornella Cominetti, and Fran{\c{c}}ois-Pierre~J. Martin.
+\newblock Longitudinal omics modeling and integration in clinical metabonomics
+  research: challenges in childhood metabolic health research.
+\newblock \emph{Frontiers in Molecular Biosciences}, 2, August 2015.
+\newblock \doi{10.3389/fmolb.2015.00044}.
+\newblock URL \url{https://doi.org/10.3389/fmolb.2015.00044}.
+
+\bibitem[Stanberry et~al.(2013)Stanberry, Mias, Haynes, Higdon, Snyder, and
+  Kolker]{Stanberryetal2013}
+Larissa Stanberry, George Mias, Winston Haynes, Roger Higdon, Michael Snyder,
+  and Eugene Kolker.
+\newblock Integrative analysis of longitudinal metabolomics data from a
+  personal multi-omics profile.
+\newblock \emph{Metabolites}, 3\penalty0 (3):\penalty0 741--760, September
+  2013.
+\newblock \doi{10.3390/metabo3030741}.
+\newblock URL \url{https://doi.org/10.3390/metabo3030741}.
+
+\bibitem[Taavoni and Arashi(2022)]{TaavoniArashi2022}
+Mozhgan Taavoni and Mohammad Arashi.
+\newblock Estimation in multivariate {$t$} linear mixed models for longitudinal
+  data with multiple outputs: application to {PBC}seq data analysis.
+\newblock \emph{Biom. J.}, 64\penalty0 (3):\penalty0 539--556, 2022.
+\newblock ISSN 0323-3847.
+\newblock \doi{10.1002/bimj.202000015}.
+\newblock URL \url{https://doi.org/10.1002/bimj.202000015}.
+
+\bibitem[Tsiatis et~al.(1995)Tsiatis, De{G}ruttola, and Wulfsohn]{Tsiatis1995}
+A.~A. Tsiatis, Victor De{G}ruttola, and M.~S. Wulfsohn.
+\newblock Modeling the relationship of survival to longitudinal data measured
+  with error. {A}pplications to survival and {CD}4 counts in patients with
+  {AIDS}.
+\newblock \emph{Journal of the American Statistical Association}, 90\penalty0
+  (429):\penalty0 27–37, March 1995.
+\newblock ISSN 1537-274X.
+\newblock \doi{10.1080/01621459.1995.10476485}.
+\newblock URL \url{http://dx.doi.org/10.1080/01621459.1995.10476485}.
+
+\bibitem[Vaas et~al.(2012)Vaas, Sikorski, Michael, G\"{o}ker, and
+  Klenk]{Vaas2012}
+Lea A.~I. Vaas, Johannes Sikorski, Victoria Michael, Markus G\"{o}ker, and
+  Hans-Peter Klenk.
+\newblock Visualization and curve-parameter estimation strategies for efficient
+  exploration of phenotype microarray kinetics.
+\newblock \emph{{PLoS} {ONE}}, 7\penalty0 (4):\penalty0 e34846, April 2012.
+\newblock \doi{10.1371/journal.pone.0034846}.
+\newblock URL \url{https://doi.org/10.1371/journal.pone.0034846}.
+
+\bibitem[van~der Wilk et~al.(2020)van~der Wilk, Dutordoir, John, Artemev, Adam,
+  and Hensman]{vanderWilketal2020}
+Mark van~der Wilk, Vincent Dutordoir, ST~John, Artem Artemev, Vincent Adam, and
+  James Hensman.
+\newblock A framework for interdomain and multioutput gaussian processes, 2020.
+\newblock URL \url{https://arxiv.org/abs/2003.01115}.
+
+\bibitem[Vasaikar et~al.(2023)Vasaikar, Savage, Gong, Swanson, Talla, Lord,
+  Heubeck, Reading, Graybuck, Meijer, Torgerson, Skene, Bumol, and jun
+  Li]{Vasaikaretal2023}
+Suhas~V. Vasaikar, Adam~K. Savage, Qiuyu Gong, Elliott Swanson, Aarthi Talla,
+  Cara Lord, Alexander~T. Heubeck, Julian Reading, Lucas~T. Graybuck, Paul
+  Meijer, Troy~R. Torgerson, Peter~J. Skene, Thomas~F. Bumol, and Xiao jun Li.
+\newblock A comprehensive platform for analyzing longitudinal multi-omics data.
+\newblock \emph{Nature Communications}, 14\penalty0 (1), March 2023.
+\newblock \doi{10.1038/s41467-023-37432-w}.
+\newblock URL \url{https://doi.org/10.1038/s41467-023-37432-w}.
+
+\bibitem[Vatanen et~al.(2016)Vatanen, Kostic, d’Hennezel, Siljander,
+  Franzosa, Yassour, Kolde, Vlamakis, Arthur, H\"{a}m\"{a}l\"{a}inen, Peet,
+  Tillmann, Uibo, Mokurov, Dorshakova, Ilonen, Virtanen, Szabo, Porter,
+  L\"{a}hdesm\"{a}ki, Huttenhower, Gevers, Cullen, Knip, and
+  Xavier]{Vatanen2016}
+Tommi Vatanen, Aleksandar~D. Kostic, Eva d’Hennezel, Heli Siljander, Eric~A.
+  Franzosa, Moran Yassour, Raivo Kolde, Hera Vlamakis, Timothy~D. Arthur,
+  Anu-Maaria H\"{a}m\"{a}l\"{a}inen, Aleksandr Peet, Vallo Tillmann, Raivo
+  Uibo, Sergei Mokurov, Natalya Dorshakova, Jorma Ilonen, Suvi~M. Virtanen,
+  Susanne~J. Szabo, Jeffrey~A. Porter, Harri L\"{a}hdesm\"{a}ki, Curtis
+  Huttenhower, Dirk Gevers, Thomas~W. Cullen, Mikael Knip, and Ramnik~J.
+  Xavier.
+\newblock Variation in microbiome {LPS} immunogenicity contributes to
+  autoimmunity in humans.
+\newblock \emph{Cell}, 165\penalty0 (4):\penalty0 842–853, May 2016.
+\newblock ISSN 0092-8674.
+\newblock \doi{10.1016/j.cell.2016.04.007}.
+\newblock URL \url{http://dx.doi.org/10.1016/j.cell.2016.04.007}.
+
+\bibitem[Verbeke and Molenberghs(2009)]{VerbekeMolenberghs2009}
+Geert Verbeke and Geert Molenberghs.
+\newblock \emph{Linear mixed models for longitudinal data}.
+\newblock Springer Series in Statistics. Springer, New York, 2009.
+\newblock ISBN 978-1-4419-0299-3.
+\newblock Reprint of the 2000 original.
+
+\bibitem[Verbeke et~al.(2014)Verbeke, Fieuws, Molenberghs, and
+  Davidian]{VerbekeetalReview2014}
+Geert Verbeke, Steffen Fieuws, Geert Molenberghs, and Marie Davidian.
+\newblock The analysis of multivariate longitudinal data: a review.
+\newblock \emph{Stat. Methods Med. Res.}, 23\penalty0 (1):\penalty0 42--59,
+  2014.
+\newblock ISSN 0962-2802.
+\newblock \doi{10.1177/0962280212445834}.
+\newblock URL \url{https://doi.org/10.1177/0962280212445834}.
+
+\bibitem[Wang(2013)]{WangMtLMM2013}
+Wan-Lun Wang.
+\newblock Multivariate {$t$} linear mixed models for irregularly observed
+  multiple repeated measures with missing outcomes.
+\newblock \emph{Biom. J.}, 55\penalty0 (4):\penalty0 554--571, 2013.
+\newblock ISSN 0323-3847.
+\newblock \doi{10.1002/bimj.201200001}.
+\newblock URL \url{https://doi.org/10.1002/bimj.201200001}.
+
+\bibitem[Wang and Taylor(2001)]{WangTaylor2001}
+Yan Wang and Jeremy M.~G. Taylor.
+\newblock Jointly modeling longitudinal and event time data with application to
+  acquired immunodeficiency syndrome.
+\newblock \emph{J. Amer. Statist. Assoc.}, 96\penalty0 (455):\penalty0
+  895--905, 2001.
+\newblock ISSN 0162-1459.
+\newblock \doi{10.1198/016214501753208591}.
+\newblock URL \url{https://doi.org/10.1198/016214501753208591}.
+
+\bibitem[Weiss(2005)]{Weiss2005}
+Robert~E. Weiss.
+\newblock \emph{Modeling longitudinal data}.
+\newblock Springer Texts in Statistics. Springer, New York, 2005.
+\newblock ISBN 0-387-40271-3.
+
+\bibitem[Wu et~al.(2012)Wu, Wang, and Wu]{Wu2012}
+Hao Wu, Chi Wang, and Zhijin Wu.
+\newblock A new shrinkage estimator for dispersion improves differential
+  expression detection in {RNA}-seq data.
+\newblock \emph{Biostatistics}, 14\penalty0 (2):\penalty0 232--243, September
+  2012.
+\newblock \doi{10.1093/biostatistics/kxs033}.
+\newblock URL \url{https://doi.org/10.1093/biostatistics/kxs033}.
+
+\bibitem[Wulfsohn and Tsiatis(1997)]{WulfsohnTsiatis1997}
+Michael~S. Wulfsohn and Anastasios~A. Tsiatis.
+\newblock A joint model for survival and longitudinal data measured with error.
+\newblock \emph{Biometrics}, 53\penalty0 (1):\penalty0 330--339, 1997.
+\newblock ISSN 0006-341X.
+\newblock \doi{10.2307/2533118}.
+\newblock URL \url{https://doi.org/10.2307/2533118}.
+
+\bibitem[Xu et~al.(2020{\natexlab{a}})Xu, Hadjipantelis, and Wang]{Xu2020JSM}
+Cong Xu, Pantelis~Z. Hadjipantelis, and Jane-Ling Wang.
+\newblock Semi-parametric joint modeling of survival and longitudinal data: The
+  r package jsm.
+\newblock \emph{Journal of Statistical Software}, 93\penalty0 (2):\penalty0
+  1–29, 2020{\natexlab{a}}.
+\newblock \doi{10.18637/jss.v093.i02}.
+\newblock URL
+  \url{https://www.jstatsoft.org/index.php/jss/article/view/v093i02}.
+
+\bibitem[Xu et~al.(2020{\natexlab{b}})Xu, Li, Yang, Li, Pinheiro, Sasser,
+  Hamadeh, Steven, and and]{Xu2020}
+Huang Xu, Xiang Li, Yaning Yang, Yi~Li, Jose Pinheiro, Kate Sasser, Hisham
+  Hamadeh, Xu~Steven, and Min~Yuan and.
+\newblock High-throughput and efficient multilocus genome-wide association
+  study on longitudinal outcomes.
+\newblock \emph{Bioinformatics}, 36\penalty0 (10):\penalty0 3004--3010,
+  February 2020{\natexlab{b}}.
+\newblock \doi{10.1093/bioinformatics/btaa120}.
+\newblock URL \url{https://doi.org/10.1093/bioinformatics/btaa120}.
+
+\bibitem[Zhou et~al.(2019)Zhou, Sailani, Contrepois, Zhou, Ahadi, Leopold,
+  Zhang, Rao, Avina, Mishra, Johnson, Lee-McMullen, Chen, Metwally, Tran,
+  Nguyen, Zhou, Albright, Hong, Petersen, Bautista, Hanson, Chen, Spakowicz,
+  Bahmani, Salins, Leopold, Ashland, Dagan-Rosenfeld, Rego, Limcaoco, Colbert,
+  Allister, Perelman, Craig, Wei, Chaib, Hornburg, Dunn, Liang, Rose, Kukurba,
+  Piening, Rost, Tse, McLaughlin, Sodergren, Weinstock, and
+  Snyder]{Zhouetal2019}
+Wenyu Zhou, M.~Reza Sailani, K{\'{e}}vin Contrepois, Yanjiao Zhou, Sara Ahadi,
+  Shana~R. Leopold, Martin~J. Zhang, Varsha Rao, Monika Avina, Tejaswini
+  Mishra, Jethro Johnson, Brittany Lee-McMullen, Songjie Chen, Ahmed~A.
+  Metwally, Thi Dong~Binh Tran, Hoan Nguyen, Xin Zhou, Brandon Albright,
+  Bo-Young Hong, Lauren Petersen, Eddy Bautista, Blake Hanson, Lei Chen, Daniel
+  Spakowicz, Amir Bahmani, Denis Salins, Benjamin Leopold, Melanie Ashland,
+  Orit Dagan-Rosenfeld, Shannon Rego, Patricia Limcaoco, Elizabeth Colbert,
+  Candice Allister, Dalia Perelman, Colleen Craig, Eric Wei, Hassan Chaib,
+  Daniel Hornburg, Jessilyn Dunn, Liang Liang, Sophia Miryam
+  Sch\"{u}ssler-Fiorenza Rose, Kim Kukurba, Brian Piening, Hannes Rost, David
+  Tse, Tracey McLaughlin, Erica Sodergren, George~M. Weinstock, and Michael
+  Snyder.
+\newblock Longitudinal multi-omics of host{\textendash}microbe dynamics in
+  prediabetes.
+\newblock \emph{Nature}, 569\penalty0 (7758):\penalty0 663--671, May 2019.
+\newblock \doi{10.1038/s41586-019-1236-x}.
+\newblock URL \url{https://doi.org/10.1038/s41586-019-1236-x}.
+
+\end{thebibliography}
