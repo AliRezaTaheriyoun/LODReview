@@ -1,6 +1,5 @@
 # Load required libraries
-wd<-paste("~/Library/CloudStorage/Box-Box/GWU/Research/",
-          "Longitudinal Review/TeXfiles/some_visualizations/",sep="")
+
 library(lme4)
 library(gamm4)
 library(robustlmm)
@@ -11,6 +10,9 @@ library(MASS)
 library(multcomp)   # CI for linear combinations of model coef
 library(geepack)    # generalized estimating equations
 library(ggeffects)  # marginal effects, adjusted predictions
+library(cowplot)
+wd<-paste("~/Library/CloudStorage/Box-Box/GWU/Research/",
+          "Longitudinal Review/TeXfiles/some_visualizations/",sep="")
 covmat <- function(t_i){
   n_i <- length(t_i)
   covmatrix <- matrix(rep(0,n_i^2),n_i,n_i)
@@ -22,7 +24,6 @@ covmat <- function(t_i){
   return(covmatrix)
 }
 # Set seed for reproducibility
-set.seed(42)
 
 # Simulate longitudinal data
 n_subjects <- 100  # Number of subjects
@@ -31,6 +32,7 @@ time <- seq(0, 6, length.out = n_timepoints)
 
 # Assign treatment (70% males, 30% females)
 treatment <- sample(c("Case", "Control"), n_subjects, replace = TRUE, prob = c(0.7, 0.3))
+set.seed(42)
 
 # Simulate balanced data
 complete.data <- data.frame(
@@ -38,46 +40,49 @@ complete.data <- data.frame(
   Time = rep(time, n_subjects),
   Treatment = rep(treatment, each = n_timepoints),
   # RandomEffect = rep(rnorm(n_subjects, 0, 1), each = n_timepoints),
-  RandomEffect = c(t(mvrnorm(n=n_subjects,mu=rep(0,n_timepoints),Sigma = covmat(time)))),
-  Residual = rnorm(n_subjects * n_timepoints, 0, 0.5)
+  RandomEffect1 = c(t(mvrnorm(n=n_subjects,mu=rep(0,n_timepoints),Sigma = covmat(time)))),
+  RandomEffect2 = c(t(mvrnorm(n=n_subjects,mu=rep(0,n_timepoints),Sigma = covmat(time)))),
+  Residual = rnorm(n_subjects * n_timepoints, 0, .1)
 )
-complete.data$Response <- (2 + 0.5 * complete.data$Time +
+complete.data$Response <- (-2 + 0.5 * complete.data$Time +
                              ifelse(complete.data$Treatment == "Case", 0.4, -0.4) +  # Add fixed effect of treatment
-                             complete.data$RandomEffect + complete.data$Residual)/10
-Subject_balance <- sample(rep(1:n_subjects),35,replace = F)
+                             complete.data$RandomEffect1+
+                             complete.data$RandomEffect2*complete.data$Time +
+                             complete.data$Residual)/100
+Subject_balance <- sample(rep(1:n_subjects),20,replace = F)
 balanced_data <- complete.data[complete.data$Subject %in% Subject_balance,]
 rownames_imbalance <- sample(rownames(complete.data),nrow(balanced_data),replace = F)
 imbalanced_data <- complete.data[rownames(complete.data) %in% rownames_imbalance,]
-imSubject<-numeric(0)
-imTime<-numeric(0)
-imTreatment<-numeric(0)
-imRandomEffect<-numeric(0)
-imResidual<-numeric(0)
-for (i in 1:n_subjects){
-  (n_i <- sample(c(1:n_timepoints),1))
-  (subj_i <- rep(i,n_i))
-  # (t_i <- runif(n_i,min=0,max=7))
-  (t_i <- sample(seq(0,6),n_i,replace = F))
-  (treat_i <- rep(treatment[i],n_i))
-  (randEff_i <- mvrnorm(n=1,mu=rep(0,n_i),Sigma = covmat(t_i)))
-  (Residual_i = rnorm(n_i, 0, 0.5))
-  imSubject<-c(imSubject,subj_i)
-  imTime<-c(imTime,t_i)
-  imTreatment<-c(imTreatment,treat_i)
-  imRandomEffect<-c(imRandomEffect,randEff_i)
-  imResidual<-c(imResidual,Residual_i)
-}
-imbalanced_data <- data.frame(
-  Subject = imSubject,
-  Time = imTime,
-  Treatment = imTreatment,
-  RandomEffect = imRandomEffect,
-  Residual = imResidual
-)
-
-imbalanced_data$Response <- (2 + 0.5 * imbalanced_data$Time +
-                             ifelse(imbalanced_data$Treatment == "Case", 0.3, -0.3) +  # Add fixed effect of treatment
-                               imbalanced_data$RandomEffect + imbalanced_data$Residual)/10
+# imSubject<-numeric(0)
+# imTime<-numeric(0)
+# imTreatment<-numeric(0)
+# imRandomEffect<-numeric(0)
+# imResidual<-numeric(0)
+# for (i in 1:n_subjects){
+#   (n_i <- sample(c(1:n_timepoints),1))
+#   (subj_i <- rep(i,n_i))
+#   # (t_i <- runif(n_i,min=0,max=7))
+#   (t_i <- sample(seq(0,6),n_i,replace = F))
+#   (treat_i <- rep(treatment[i],n_i))
+#   (randEff_i <- mvrnorm(n=1,mu=rep(0,n_i),Sigma = covmat(t_i)))
+#   (Residual_i = rnorm(n_i, 0, 0.5))
+#   imSubject<-c(imSubject,subj_i)
+#   imTime<-c(imTime,t_i)
+#   imTreatment<-c(imTreatment,treat_i)
+#   imRandomEffect<-c(imRandomEffect,randEff_i)
+#   imResidual<-c(imResidual,Residual_i)
+# }
+# imbalanced_data <- data.frame(
+#   Subject = imSubject,
+#   Time = imTime,
+#   Treatment = imTreatment,
+#   RandomEffect = imRandomEffect,
+#   Residual = imResidual
+# )
+# 
+# imbalanced_data$Response <- (2 + 0.5 * imbalanced_data$Time +
+#                              ifelse(imbalanced_data$Treatment == "Case", 0.3, -0.3) +  # Add fixed effect of treatment
+#                                imbalanced_data$RandomEffect + imbalanced_data$Residual)/10
 
 # Fit models
 # LME model on imbalanced data
@@ -166,12 +171,12 @@ imbalanced <- ggplot(imbalanced_data, aes(x = Time)) +
   geom_line(data = mean_predictions_imbalanced, aes(x = Time, y = Mean_GEE, linetype = "Mean GEE"),
             color = "darkblue", size = 0.8) +
   # Confidence intervals for LME
-  geom_rect(data = mean_predictions, aes(xmin = Time - 0.05, xmax = Time + 0.05,
+  geom_rect(data = mean_predictions_imbalanced, aes(xmin = Time - 0.05, xmax = Time + 0.05,
                                          ymin = LME_Lower, ymax = LME_Upper,
                                          fill = "LME CI"),
             alpha = 0.5, inherit.aes = FALSE) +
   # Confidence intervals for GAMM
-  geom_rect(data = mean_predictions, aes(xmin = Time - 0.05, xmax = Time + 0.05,
+  geom_rect(data = mean_predictions_imbalanced, aes(xmin = Time - 0.05, xmax = Time + 0.05,
                                          ymin = GEE_Lower, ymax = GEE_Upper,
                                          fill = "GEE CI"),
             alpha = 0.5, inherit.aes = FALSE) +
@@ -210,8 +215,8 @@ imbalanced <- ggplot(imbalanced_data, aes(x = Time)) +
   theme(legend.position = "right",
         legend.key.width = unit(.4, "in"), legend.key.height =unit(.2, "in"),
         legend.key.size=unit(.9,"lines")) 
-ggsave(filename = paste(wd,"imbalanced.pdf",sep=""), #device = "eps", 
-       imbalanced,width = 7.2, heigh=6, units = "in")
+# ggsave(filename = paste(wd,"imbalanced.pdf",sep=""), #device = "eps", 
+#        imbalanced,width = 7.2, heigh=6, units = "in")
 
 
 
@@ -228,14 +233,14 @@ balanced <- ggplot(balanced_data, aes(x = Time)) +
   geom_line(data = mean_predictions_balanced, aes(x = Time, y = Mean_GEE, linetype = "Mean GEE"),
             color = "darkblue", size = 0.8) +
   # Confidence intervals for LME
-  geom_rect(data = mean_predictions, aes(xmin = Time - 0.05, xmax = Time + 0.05,
+  geom_rect(data = mean_predictions_balanced, aes(xmin = Time - 0.05, xmax = Time + 0.05,
                                          ymin = LME_Lower, ymax = LME_Upper,
                                          fill = "LME CI"),
             alpha = 0.5, inherit.aes = FALSE) +
   # Confidence intervals for GAMM
-  geom_rect(data = mean_predictions, aes(xmin = Time - 0.05, xmax = Time + 0.05,
+  geom_rect(data = mean_predictions_balanced, aes(xmin = Time - 0.05, xmax = Time + 0.05,
                                          ymin = GAMM_Lower, ymax = GAMM_Upper,
-                                         fill = "GAMM CI"),
+                                         fill = "GEE CI"),
             alpha = 0.5, inherit.aes = FALSE) +
   # Boxplot for LME predicted values
   geom_boxplot(aes(y = LME_Predicted, group = interaction(Time, "LME"),
@@ -243,8 +248,8 @@ balanced <- ggplot(balanced_data, aes(x = Time)) +
                width = 0.15, color = "red", alpha = 0.2,
                position = position_nudge(x = -0.15), outlier.shape = NA) +
   # Boxplot for GAMM predicted values
-  geom_boxplot(aes(y = GAMM_Predicted, group = interaction(Time, "GAMM"),
-                   fill = "GAMM Boxplot"),
+  geom_boxplot(aes(y = GAMM_Predicted, group = interaction(Time, "GEE"),
+                   fill = "GEE Boxplot"),
                width = 0.15, color = "blue", alpha = 0.2,
                position = position_nudge(x = 0.15), outlier.shape = NA) +
   # Smooth lines for LME and GAMM predictions
@@ -258,8 +263,8 @@ balanced <- ggplot(balanced_data, aes(x = Time)) +
   scale_color_manual(name = "Treatment", 
                      values = c("Control" = "#AA9868", "Case" = "#033C5A")) +
   scale_fill_manual(name = "CIs and Boxplots",
-                    values = c("LME CI" = "orange", "GAMM CI" = "purple",
-                               "LME Boxplot" = "red", "GAMM Boxplot" = "blue")) +
+                    values = c("LME CI" = "orange", "GEE CI" = "purple",
+                               "LME Boxplot" = "red", "GEE Boxplot" = "blue")) +
   scale_linetype_manual(name = "Line Types",
                         values = c("Subject Realizations" = "solid",
                                    "Mean LME" = "dashed", "Mean GEE" = "dashed",
@@ -272,5 +277,28 @@ balanced <- ggplot(balanced_data, aes(x = Time)) +
   theme(legend.position = "right",
         legend.key.width = unit(.4, "in"), legend.key.height =unit(.2, "in"),
         legend.key.size=unit(.9,"lines")) 
-ggsave(filename = paste(wd,"balanced.pdf",sep=""), #device = "eps", 
-       balanced,width = 7.2, heigh=6, units = "in")       
+# ggsave(filename = paste(wd,"balanced.pdf",sep=""), #device = "eps", 
+#        balanced,width = 7.2, heigh=6, units = "in")   
+balimbal <- plot_grid(
+  balanced  +theme(legend.position = "none",
+                   axis.title.x = element_text(size = 9),
+                   axis.title.y = element_text(size = 9))+
+    xlab("Time")+
+    ylab("log(Relative Abundance +1)"),
+  imbalanced + theme(legend.position = c(.1, 0.8),
+                     legend.text = element_text(size = 8),
+                     legend.title=element_blank(),
+                     legend.spacing.y = unit(0, "lines"),
+                     axis.title.x = element_text(size = 9),
+                     axis.title.y = element_text(size = 9))+
+    xlab("Time")+
+    ylab("log(Relative Abundance +1)"),
+  labels = c("a", "b", "c", "d", "e" , "f", "g", "h", "i", "j",
+             "k", "l", "m", "n", "o", "p", "q", "r", "s", "t",
+             "u", "v","w","x","y","z"),  # Labels for each plot
+  label_size = 10,                         # Font size for labels
+  label_fontface = "bold",                 # Boldface for labels
+  ncol = 2                                 # Arrange the plots in 2 columns
+)
+ggsave(filename = paste(wd,"balimbal.pdf",sep=""), #device = "eps", 
+       balimbal,width = 6.2, heigh=7, units = "in") 
