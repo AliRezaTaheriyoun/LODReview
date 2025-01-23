@@ -11,30 +11,6 @@ library(MASS)
 library(multcomp)   # CI for linear combinations of model coef
 library(geepack)    # generalized estimating equations
 library(ggeffects)  # marginal effects, adjusted predictions
-
-# Set seed for reproducibility
-set.seed(42)
-
-# Simulate longitudinal data
-n_subjects <- 35  # Number of subjects
-n_timepoints <- 7  # Number of timepoints
-time <- seq(0, 6, length.out = n_timepoints)
-
-# Assign treatment (70% males, 30% females)
-treatment <- sample(c("Case", "Control"), n_subjects, replace = TRUE, prob = c(0.7, 0.3))
-
-# Simulate balanced data
-balanced_data <- data.frame(
-  Subject = rep(1:n_subjects, each = n_timepoints),
-  Time = rep(time, n_subjects),
-  Treatment = rep(treatment, each = n_timepoints),
-  # RandomEffect = rep(rnorm(n_subjects, 0, 1), each = n_timepoints),
-  RandomEffect = mvrnorm(n=1,mu=rep(0,n_i),Sigma = covmat(t_i)),
-  Residual = rnorm(n_subjects * n_timepoints, 0, 0.5)
-)
-balanced_data$Response <- (2 + 0.5 * balanced_data$Time +
-                             ifelse(balanced_data$Treatment == "Case", 0.3, -0.3) +  # Add fixed effect of treatment
-                             balanced_data$RandomEffect + balanced_data$Residual)/10
 covmat <- function(t_i){
   n_i <- length(t_i)
   covmatrix <- matrix(rep(0,n_i^2),n_i,n_i)
@@ -45,6 +21,33 @@ covmat <- function(t_i){
   }
   return(covmatrix)
 }
+# Set seed for reproducibility
+set.seed(42)
+
+# Simulate longitudinal data
+n_subjects <- 100  # Number of subjects
+n_timepoints <- 7  # Number of timepoints
+time <- seq(0, 6, length.out = n_timepoints)
+
+# Assign treatment (70% males, 30% females)
+treatment <- sample(c("Case", "Control"), n_subjects, replace = TRUE, prob = c(0.7, 0.3))
+
+# Simulate balanced data
+complete.data <- data.frame(
+  Subject = rep(1:n_subjects, each = n_timepoints),
+  Time = rep(time, n_subjects),
+  Treatment = rep(treatment, each = n_timepoints),
+  # RandomEffect = rep(rnorm(n_subjects, 0, 1), each = n_timepoints),
+  RandomEffect = c(t(mvrnorm(n=n_subjects,mu=rep(0,n_timepoints),Sigma = covmat(time)))),
+  Residual = rnorm(n_subjects * n_timepoints, 0, 0.5)
+)
+complete.data$Response <- (2 + 0.5 * complete.data$Time +
+                             ifelse(complete.data$Treatment == "Case", 0.4, -0.4) +  # Add fixed effect of treatment
+                             complete.data$RandomEffect + complete.data$Residual)/10
+Subject_balance <- sample(rep(1:n_subjects),35,replace = F)
+balanced_data <- complete.data[complete.data$Subject %in% Subject_balance,]
+rownames_imbalance <- sample(rownames(complete.data),nrow(balanced_data),replace = F)
+imbalanced_data <- complete.data[rownames(complete.data) %in% rownames_imbalance,]
 imSubject<-numeric(0)
 imTime<-numeric(0)
 imTreatment<-numeric(0)
@@ -169,8 +172,8 @@ imbalanced <- ggplot(imbalanced_data, aes(x = Time)) +
             alpha = 0.5, inherit.aes = FALSE) +
   # Confidence intervals for GAMM
   geom_rect(data = mean_predictions, aes(xmin = Time - 0.05, xmax = Time + 0.05,
-                                         ymin = GAMM_Lower, ymax = GAMM_Upper,
-                                         fill = "GAMM CI"),
+                                         ymin = GEE_Lower, ymax = GEE_Upper,
+                                         fill = "GEE CI"),
             alpha = 0.5, inherit.aes = FALSE) +
   # Boxplot for LME predicted values
   geom_boxplot(aes(y = LME_Predicted, group = interaction(Time, "LME"),
@@ -178,8 +181,8 @@ imbalanced <- ggplot(imbalanced_data, aes(x = Time)) +
                width = 0.15, color = "red", alpha = 0.2,
                position = position_nudge(x = -0.15), outlier.shape = NA) +
   # Boxplot for GAMM predicted values
-  geom_boxplot(aes(y = GAMM_Predicted, group = interaction(Time, "GAMM"),
-                   fill = "GAMM Boxplot"),
+  geom_boxplot(aes(y = GEE_Predicted, group = interaction(Time, "GEE"),
+                   fill = "GEE Boxplot"),
                width = 0.15, color = "blue", alpha = 0.2,
                position = position_nudge(x = 0.15), outlier.shape = NA) +
   # Smooth lines for LME and GAMM predictions
@@ -187,7 +190,7 @@ imbalanced <- ggplot(imbalanced_data, aes(x = Time)) +
               aes(x = Time, y = LME_Predicted, color = Treatment, linetype = "LME Trend"), 
               size = 0.8, method = "lm", se = FALSE) +
   geom_smooth(data = imbalanced_data, 
-              aes(x = Time, y = GAMM_Predicted, color = Treatment, linetype = "GEE Trend"), 
+              aes(x = Time, y = GEE_Predicted, color = Treatment, linetype = "GEE Trend"), 
               size = 0.8, method = "lm", se = FALSE) +
   # Define scales for color, fill, and linetype
   scale_color_manual(name = "Treatment", 
