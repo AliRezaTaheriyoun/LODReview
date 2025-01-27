@@ -449,11 +449,11 @@ combinedplot <- function(m,n_row,n_col,linelegend=F,linexlabel=F,lineylabel=F
     )
   if(linexlabel){
     line_plot <- line_plot+labs(x="Time")+
-      theme(axis.title.x=element_text(size = 6))
+      theme(axis.title.x=element_text(size = 9))
   }
   if(lineylabel){
     line_plot <- line_plot+labs(y="Abundance/Relative Abundance")+
-      theme(axis.title.y=element_text(size = 6,angle = 90))
+      theme(axis.title.y=element_text(size = 9,angle = 90))
   }
   if(linelegend){
     line_plot <- line_plot + theme(
@@ -488,13 +488,13 @@ combinedplot <- function(m,n_row,n_col,linelegend=F,linexlabel=F,lineylabel=F
     )
     if(heatxlabel){
       heatmap <- heatmap+labs(x="Time", fill = "Abundance")+
-        theme(axis.title.x=element_text(size = 8),
-              axis.text.x=element_text(size = 7))
+        theme(axis.title.x=element_text(size = 9),
+              axis.text.x=element_text(size = 9))
     }
   if(heatylabel){
     heatmap <- heatmap+labs(y="")+
-      theme(axis.title.y=element_text(size = 8),
-            axis.text.y=element_text(size = 7))
+      theme(axis.title.y=element_text(size = 9),
+            axis.text.y=element_text(size = 9))
   }
   if(heatlegend){
     heatmap <- heatmap + theme(
@@ -506,7 +506,7 @@ combinedplot <- function(m,n_row,n_col,linelegend=F,linexlabel=F,lineylabel=F
     # labs(x = "Time", fill = "Abundance")
   
   # Combine the plots with no space between
-  combined_plot <- line_plot / heatmap + plot_layout(heights = c(1, 2.5)#, 
+  combined_plot <- line_plot / heatmap + plot_layout(heights = c(1, 2)#, 
                                                      # guides = "collect"
                                                      )
   return(combined_plot)
@@ -531,22 +531,22 @@ combined_plot4<-combinedplot(m4,n_row,n_col,linelegend=T,linexlabel=F,lineylabel
 ggsave(
   filename = paste(wd, "combined_plot1.pdf", sep = ""),
   plot = combined_plot1,
-  width = 3.5, height = 3, units = "in"
+  width = 3, height = 2, units = "in"
 )
 ggsave(
   filename = paste(wd, "combined_plot2.pdf", sep = ""),
   plot = combined_plot2,
-  width = 3.5, height = 3, units = "in"
+  width = 3, height = 2, units = "in"
 )
 ggsave(
   filename = paste(wd, "combined_plot3.pdf", sep = ""),
   plot = combined_plot3,
-  width = 3.5, height = 3, units = "in"
+  width = 3, height = 2, units = "in"
 )
 ggsave(
   filename = paste(wd, "combined_plot4.pdf", sep = ""),
   plot = combined_plot4,
-  width = 3.5, height = 3, units = "in"
+  width = 3, height = 2, units = "in"
 )
 library(cowplot)
 legend <- cowplot::get_legend(combined_plot4)
@@ -681,10 +681,10 @@ timecourse <- ggplot(df, aes(x = TimePoint, y = Abundance, group = Feature, colo
   theme_minimal() +
   theme(
     panel.border = element_rect(color = "black", fill = NA, size = .2), # Add a black box around the plot
-    axis.title.x=element_text(size = 8),
-    axis.text.x=element_text(size = 7),
-    axis.title.y=element_text(size = 8),
-    axis.text.y=element_text(size = 7),
+    axis.title.x=element_text(size = 9),
+    axis.text.x=element_text(size = 9),
+    axis.title.y=element_text(size = 9),
+    axis.text.y=element_text(size = 9),
     axis.ticks.x=element_blank(),
     axis.ticks.y=element_blank(),
     panel.grid.major = element_blank(), 
@@ -699,5 +699,5 @@ timecourse <- ggplot(df, aes(x = TimePoint, y = Abundance, group = Feature, colo
 ggsave(
   filename = paste(wd, "timecourse.pdf", sep = ""),
   plot = timecourse,
-  width = 6, height = 2, units = "in"
+  width = 5, height = 2, units = "in"
 )
