@@ -408,13 +408,10 @@ library(dplyr)
 library(patchwork)
 library(omicsArt)
 library(cowplot)
-# # Set up the data
-# set.seed(pi)
-# n_row <- 7
-# n_col <- 5
-# m <- matrix(c(rnorm(n_row * n_col - 2 * n_row), rnorm(n_row, 3, 1), rnorm(n_row, -1, 2)) + 10, 
-#             nrow = n_row, ncol = n_col)
-combinedplot <- function(m,n_row,n_col,legend=F,xlabel=F,ylabel=F){
+wd<-paste("~/Library/CloudStorage/Box-Box/GWU/Research/",
+          "Longitudinal Review/TeXfiles/some_visualizations/",sep="")
+combinedplot <- function(m,n_row,n_col,linelegend=F,linexlabel=F,lineylabel=F
+                         ,heatlegend=F,heatxlabel=F,heatylabel=F){
   # Convert the matrix to a data frame for ggplot
   df <- as.data.frame(m)
   colnames(df) <- paste0("TP_", 0:(n_col - 1))  # Label columns as "TP_0", "TP_1", etc.
@@ -432,33 +429,33 @@ combinedplot <- function(m,n_row,n_col,legend=F,xlabel=F,ylabel=F){
   
   # Line plot (top visualization)
   line_plot <-ggplot(df_long, aes(x = TimePoint, y = Abundance, group = Feature, color = Feature)) +
-    geom_line(size = 1) +
-    geom_point(size = 2) +
+    geom_line(size = .5) +
+    geom_point(size = 1) +
     scale_color_manual(values = colors) +
     theme_minimal() +
     # theme_omicsEye() +  # Assuming this theme is defined elsewhere
     theme(
-      panel.border = element_rect(color = "black", fill = NA, size = .5), # Add a black box around the plot
+      panel.border = element_rect(color = "black", fill = NA, size = .2), # Add a black box around the plot
       axis.title.x=element_blank(),
       axis.title.y=element_blank(),
       axis.text.x=element_blank(),
+      axis.text.y=element_blank(),
       axis.ticks.x=element_blank(),
       axis.ticks.y=element_blank(),
-      axis.text.y=element_blank(),
       legend.position = "none",
       panel.grid.major = element_blank(), 
       panel.grid.minor = element_blank(),
-      plot.margin = margin(0, 0, 0, 0),  # No margin
+      plot.margin = margin(t=0, r=0, b=0, l=0,unit = "in")  # No margin
     )
-  if(xlabel){
+  if(linexlabel){
     line_plot <- line_plot+labs(x="Time")+
-      theme(axis.title.x=element_text(size = 6))
+      theme(axis.title.x=element_text(size = 9))
   }
-  if(ylabel){
+  if(lineylabel){
     line_plot <- line_plot+labs(y="Abundance/Relative Abundance")+
-      theme(axis.title.y=element_text(size = 6))
+      theme(axis.title.y=element_text(size = 9,angle = 90))
   }
-  if(legend){
+  if(linelegend){
     line_plot <- line_plot + theme(
       legend.position = "right",
       legend.key.width = unit(0.4, "in"), 
@@ -466,29 +463,6 @@ combinedplot <- function(m,n_row,n_col,legend=F,xlabel=F,ylabel=F){
       legend.key.size = unit(0, "lines"))
   }
   
-  
-  line_plot <-ggplot(df_long, aes(x = TimePoint, y = Abundance, group = Feature, color = Feature)) +
-    geom_line(size = 1) +
-    geom_point(size = 2) +
-    scale_color_manual(values = colors) +
-    theme_minimal() +
-    # theme_omicsEye() +  # Assuming this theme is defined elsewhere
-    theme(
-      panel.border = element_rect(color = "black", fill = NA, size = .5), # Add a black box around the plot
-      axis.title.x=element_blank(),
-      axis.title.y=element_text(size = 6),
-      axis.text.x=element_blank(),
-      axis.ticks.x=element_blank(),
-      axis.ticks.y=element_blank(),
-      axis.text.y=element_blank(),
-      legend.position = "right",
-      legend.key.width = unit(0.4, "in"), 
-      legend.key.height = unit(0.2, "in"),
-      legend.key.size = unit(0.9, "lines"),
-      panel.grid.major = element_blank(), 
-      panel.grid.minor = element_blank(),
-      plot.margin = margin(0, 0, 0, 0),  # No margin
-    )
   heatmap_data <- df_long %>%
     # mutate(Feature = factor(Feature, levels = rev(levels(Feature))))  # Reverse order for heatmap
     mutate(Feature = factor(Feature, levels = rev(levels(Feature))))  # Reverse order for heatmap
@@ -500,20 +474,44 @@ combinedplot <- function(m,n_row,n_col,legend=F,xlabel=F,ylabel=F){
     scale_fill_gradientn(colors = heat.colors(100)) +
     theme_minimal() +
     theme(
-      panel.border = element_rect(color = "black", fill = NA, size = .5), # Add a black box around the plot
-      # axis.title.x = element_text(),
-      plot.margin = margin(0, 0, 0, 0),  # Remove top margin
+      panel.border = element_rect(color = "black", fill = NA, size = .2), # Add a black box around the plot
+      axis.title.x=element_blank(),
       axis.title.y=element_blank(),
+      axis.text.x=element_blank(),
+      axis.text.y=element_blank(),
+      axis.ticks.x=element_blank(),
+      axis.ticks.y=element_blank(),
+      legend.position = "none",
       panel.grid.major = element_blank(), 
       panel.grid.minor = element_blank(),
-      legend.position = "none"
-    ) +
-    labs(x = "Time", fill = "Abundance")
+      plot.margin = margin(t=0, r=0, b=0, l=0,unit = "in")  # No margin
+    )
+    if(heatxlabel){
+      heatmap <- heatmap+labs(x="Time", fill = "Abundance")+
+        theme(axis.title.x=element_text(size = 9),
+              axis.text.x=element_text(size = 9))
+    }
+  if(heatylabel){
+    heatmap <- heatmap+labs(y="")+
+      theme(axis.title.y=element_text(size = 9),
+            axis.text.y=element_text(size = 9))
+  }
+  if(heatlegend){
+    heatmap <- heatmap + theme(
+      legend.position = "right",
+      legend.key.width = unit(0.4, "in"), 
+      legend.key.height = unit(0.2, "in"),
+      legend.key.size = unit(0, "lines"))
+  }
+    # labs(x = "Time", fill = "Abundance")
   
   # Combine the plots with no space between
-  combined_plot <- line_plot / heatmap + plot_layout(heights = c(1, 3), guides = "collect")
+  combined_plot <- line_plot / heatmap + plot_layout(heights = c(1, 2)#, 
+                                                     # guides = "collect"
+                                                     )
   return(combined_plot)
 }
+
 set.seed(pi)
 n_row <- 7
 n_col <- 5
@@ -522,45 +520,75 @@ m2 <- matrix(c(rnorm(n_row * n_col-n_row),rnorm(n_row,2,1))+10, nrow = n_row, nc
 m3 <- matrix(c(rnorm(n_row * n_col))+10, nrow = n_row, ncol = n_col)
 m4 <- matrix(c(rnorm(n_row * n_col-n_row),rnorm(n_row,2,1))+10, nrow = n_row, ncol = n_col)
 
-combined_plot1<-combinedplot(m1,n_row,n_col)
-combined_plot2<-combinedplot(m2,n_row,n_col)
-combined_plot3<-combinedplot(m3,n_row,n_col)
-combined_plot4<-combinedplot(m4,n_row,n_col)
+combined_plot1<-combinedplot(m1,n_row,n_col,linelegend=T,linexlabel=F,lineylabel=T
+                             ,heatlegend=F,heatxlabel=T,heatylabel=T)
+combined_plot2<-combinedplot(m2,n_row,n_col,linelegend=T,linexlabel=F,lineylabel=T
+                             ,heatlegend=F,heatxlabel=T,heatylabel=T)
+combined_plot3<-combinedplot(m3,n_row,n_col,linelegend=T,linexlabel=F,lineylabel=T
+                             ,heatlegend=F,heatxlabel=T,heatylabel=T)
+combined_plot4<-combinedplot(m4,n_row,n_col,linelegend=T,linexlabel=F,lineylabel=T
+                             ,heatlegend=F,heatxlabel=T,heatylabel=T)
+ggsave(
+  filename = paste(wd, "combined_plot1.pdf", sep = ""),
+  plot = combined_plot1,
+  width = 3, height = 2, units = "in"
+)
+ggsave(
+  filename = paste(wd, "combined_plot2.pdf", sep = ""),
+  plot = combined_plot2,
+  width = 3, height = 2, units = "in"
+)
+ggsave(
+  filename = paste(wd, "combined_plot3.pdf", sep = ""),
+  plot = combined_plot3,
+  width = 3, height = 2, units = "in"
+)
+ggsave(
+  filename = paste(wd, "combined_plot4.pdf", sep = ""),
+  plot = combined_plot4,
+  width = 3, height = 2, units = "in"
+)
 library(cowplot)
+legend <- cowplot::get_legend(combined_plot4)
+LOD <- combined_plot1 + combined_plot2 +combined_plot3+combined_plot4+
+  plot_layout(ncol = 4)
 LOD <- plot_grid(
-  combined_plot1  + theme(legend.position = "none",
-                          axis.title.x = element_text(size = 8),
-                          axis.title.y = element_text(size = 8)),
-  combined_plot2 + theme(legend.position = "none",
-                       axis.title.x = element_text(size = 8),
-                       axis.title.y = element_blank()),
-  combined_plot3 + theme(legend.position = "none",
-                         axis.title.x = element_text(size = 8),
-                         axis.title.y = element_blank()),
-  combined_plot4 + theme(legend.position = c(.01, 0.8),
-                         legend.box = "vertical",
-                         legend.direction = "vertical",
-                         legend.text = element_text(size = 7),
-                         legend.title=element_blank(),
-                         legend.spacing.y = unit(0, "lines"),
-                         axis.title.x = element_text(size = 8),
-                         axis.title.y = element_text(size = 8))+
-    guides(fill = guide_legend(ncol = 2), color = guide_legend(ncol = 2), 
-           linetype = guide_legend(ncol = 2)),
+  combined_plot1,# + theme(plot.margin = margin(0, .1, .1, .1)),
+  combined_plot2,# + theme(plot.margin = margin(.1, .1, .1, .1)),
+  combined_plot3,# + theme(plot.margin = margin(.1, .1, .1, .1)),
+  combined_plot4,# + theme(plot.margin = margin(.1, .1, .1, .1)),#+ 
+    # theme(
+    #   legend.position = "right",
+    #   legend.key.width = unit(0.4, "in"), 
+    #   legend.key.height = unit(0.2, "in"),
+    #   legend.key.size = unit(0, "lines")),
+  # + theme(legend.position = c(.01, 0.8),
+  #                        legend.box = "vertical",
+  #                        legend.direction = "vertical",
+  #                        legend.text = element_text(size = 7),
+  #                        legend.title=element_blank(),
+  #                        legend.spacing.y = unit(0, "lines"),
+  #                        axis.title.x = element_text(size = 8),
+  #                        axis.title.y = element_text(size = 8))+
+  #   guides(fill = guide_legend(ncol = 2), color = guide_legend(ncol = 2), 
+  #          linetype = guide_legend(ncol = 2)),
   # labels = c("a", "b", "c", "d", "e" , "f", "g", "h", "i", "j",
   #            "k", "l", "m", "n", "o", "p", "q", "r", "s", "t",
   #            "u", "v","w","x","y","z"),  # Labels for each plot
   # label_size = 10,                         # Font size for labels
   # label_fontface = "bold",                 # Boldface for labels
-  ncol = 4                                 # Arrange the plots in 2 columns
+  ncol = 4
+  # align = "hv", # Align horizontally
+  # axis = "tb",  # Align top and bottom axes
+  # rel_widths = c(1, 1, 1, 1) # Equal widths for all plots
 )
-ggsave(filename = paste(wd,"balimbal.pdf",sep=""), #device = "eps", 
-       LOD,width = 6.2, heigh=5, units = "in") 
+# LOD <- plot_grid(LOD, legend, ncol = 2, rel_heights = c(0.9, 0.1))
 
-
-
-
-
+ggsave(
+  filename = paste(wd, "LOD.pdf", sep = ""),
+  plot = LOD,
+  width = 7.2, height = 4, units = "in"
+)
 #######################################
 #######################################
 #######################################
@@ -569,50 +597,6 @@ ggsave(filename = paste(wd,"balimbal.pdf",sep=""), #device = "eps",
 #######################################
 #######################################
 set.seed(pi)
-n_row <- 7
-n_col <- 5
-m <- matrix(c(rnorm(n_row * n_col-2*n_row),rnorm(n_row,3,1),rnorm(n_row,-1,2))+10, nrow = n_row, ncol = n_col)
-m <- matrix(c(rnorm(n_row * n_col-n_row),rnorm(n_row,2,1))+10, nrow = n_row, ncol = n_col)
-m <- matrix(c(rnorm(n_row * n_col))+10, nrow = n_row, ncol = n_col)
-m <- matrix(c(rnorm(n_row * n_col-n_row),rnorm(n_row,2,1))+10, nrow = n_row, ncol = n_col)
-
-# Open the emf device before setting up the plot
-svg(paste(out_path,"some_visualizations/long3.svg",sep=""), width = 3.5, 
-    height = 3.5, pointsize = 7)
-
-# Set up a layout with 2 rows and 1 column: one plot on top of the other
-layout(matrix(c(1, 2), nrow = 2), heights = c(1, 3))  # Adjust heights as necessary
-
-# Colors for each row
-colors <- rainbow(n_row)  # Use the 'rainbow()' palette for distinct colors
-
-# Plot all the rows as lines on top
-par(mar = c(0, 4, 2, 2))  # Reduce bottom margin for the first plot
-plot(0:(n_col-1), m[1,], type = "n", ylim = c(min(m), max(m) + 0.1), 
-     xaxt = 'n', xlab = "", ylab = "Abundance")  # Set up the empty plot
-
-# Loop to plot each row with different colors
-for (i in 1:n_row) {
-  lines(0:(n_col-1), m[i,], col = colors[i], lwd = 2)
-  points(0:(n_col-1), m[i,], col = colors[i], pch = 16)
-}
-
-# Plot the matrix as an image below the lines
-par(mar = c(5, 4, 0, 2))  # Reduce top margin for the second plot
-image(1:n_col, 1:n_row, t(m)[,n_row:1], col = heat.colors(100), xlab = "Time-points", ylab = "Features", axes = FALSE)
-
-# Draw x-axis and y-axis labels
-axis(1, at = 1:n_col, labels = 0:(n_col-1), las = 1)  # Time-points on x-axis
-
-# Add custom y-axis labels with the same colors as the lines above
-for (i in 1:n_row) {
-  text(x = 0.5, y = i, labels = n_row-i+1, col = colors[n_row-i+1], xpd = TRUE, adj = 1)  # Add colored row numbers
-}
-
-# Close the emf device
-dev.off()
-out_path <- paste("/Users/alireza/Library/CloudStorage/Box-Box/GWU/Research",
-                  "/Longitudinal Review/TeXfiles/some_visualizations/", sep = "")
 library(pracma)
 t<-c(0,0,0,0,1,1,2,2,2,3,3,3,4)
 n_row <- 7
@@ -644,3 +628,76 @@ colnames(newdata)<-c("covar","resp")
 meanvalues <- aggregate(resp~covar,data=newdata,FUN=mean)
 lines(meanvalues$covar,meanvalues$resp,lwd=3,lty="dashed",col="red")
 dev.off()
+
+###################
+###################
+library(ggplot2)
+library(tidyr)
+library(dplyr)
+
+# Simulate data
+set.seed(pi)
+t <- c(0, 0, 0, 0, 1, 1, 2, 2, 2, 3, 3, 3, 4)
+n_row <- 7
+n_col <- 13
+m <- matrix(rep(0, n_row * n_col), n_row, n_col)
+rndmean <- runif(n_row, -3, 3)
+
+for (i in 1:n_row) {
+  m[i, ] <- c(
+    rnorm(4, 0 + rndmean[i], 1),
+    rnorm(2, 4 + rndmean[i], 0.5),
+    rnorm(3, -1 + rndmean[i], 1),
+    rnorm(3, 2 + rndmean[i], 1),
+    rnorm(1, 4 + rndmean[i], 1)
+  )
+}
+
+# Reshape data for ggplot
+time <- rep(t, times = n_row)
+feature <- rep(paste0("Feature_", 1:n_row), each = n_col)
+abundance <- as.vector(m)
+
+df <- data.frame(TimePoint = time, Feature = feature, Abundance = abundance)
+
+# Calculate mean values for dashed line
+mean_values <- df %>%
+  group_by(TimePoint) %>%
+  summarize(MeanAbundance = mean(Abundance), .groups = "drop")
+
+# Define colors for the features
+colors <- rainbow(n_row)
+
+# Create ggplot
+timecourse <- ggplot(df, aes(x = TimePoint, y = Abundance, group = Feature, color = Feature)) +
+  # geom_line(size = 1) +                            # Individual feature lines
+  geom_point(size = 1) +                           # Individual feature points
+  scale_color_manual(values = colors) +           # Custom colors
+  geom_line(data = mean_values,                   # Mean line
+            aes(x = TimePoint, y = MeanAbundance),
+            inherit.aes = FALSE,                  # Prevent aesthetics inheritance
+            color = "red", linetype = "dashed", size = .8) +
+  labs(x = "Time", y = "Abundance/Relative Abundance") +
+  theme_minimal() +
+  theme(
+    panel.border = element_rect(color = "black", fill = NA, size = .2), # Add a black box around the plot
+    axis.title.x=element_text(size = 9),
+    axis.text.x=element_text(size = 9),
+    axis.title.y=element_text(size = 9),
+    axis.text.y=element_text(size = 9),
+    axis.ticks.x=element_blank(),
+    axis.ticks.y=element_blank(),
+    panel.grid.major = element_blank(), 
+    panel.grid.minor = element_blank(),
+    plot.margin = margin(t=0, r=0, b=0, l=0,unit = "in"),  # No margin
+    legend.position = "right",
+    legend.key.width = unit(0.4, "in"), 
+    legend.key.height = unit(0.2, "in"),
+    legend.key.size = unit(0, "lines"),
+    legend.title = element_blank()
+  )
+ggsave(
+  filename = paste(wd, "timecourse.pdf", sep = ""),
+  plot = timecourse,
+  width = 5, height = 2, units = "in"
+)
