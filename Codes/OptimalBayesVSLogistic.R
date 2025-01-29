@@ -7,7 +7,7 @@ p <- 50   # Number of time points
 time <- seq(0, 1, length.out = p)  # Time points
 # Generate two classes functionals
 group1_mean <- sin(2 * pi * time)  # Mean function for Group 1
-group2_mean <- cos(2 * pi * time)  # Mean function for Group 2
+group2_mean <- cos(2 * pi * time)  # Mean function for  Group 2
 # Simulate from Group 1
 n1 <- n / 2
 group1_data <- t(replicate(n1, group1_mean + rnorm(p, mean = 0, sd = 0.5)))
@@ -24,7 +24,7 @@ train_labels <- labels[train_index]
 test_data <- data[-train_index, ]
 test_labels <- labels[-train_index]
 
-######################## 
+########################  
 ######################## 
 # Functional Bayes Classifier based the steps 
 # intruduced in the article bellow:
