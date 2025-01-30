@@ -1,122 +1,13 @@
-library(MASS)  # For multivariate normal distribution
-library(class) # For k-nearest neighbors (kNN) for density estimation
-library(pROC)  # For ROC analysis
-set.seed(pi)
-n <- 200  # Total number of observations
-p <- 50   # Number of time points
-time <- seq(0, 1, length.out = p)  # Time points
-# Generate two classes functionals
-group1_mean <- sin(2 * pi * time)  # Mean function for Group 1
-group2_mean <- cos(2 * pi * time)  # Mean function for  Group 2
-# Simulate from Group 1
-n1 <- n / 2
-group1_data <- t(replicate(n1, group1_mean + rnorm(p, mean = 0, sd = 0.5)))
-# Simulate from Group 2
-n2 <- n / 2
-group2_data <- t(replicate(n2, group2_mean + rnorm(p, mean = 0, sd = 0.5)))
-# Combine data 
-data <- rbind(group1_data, group2_data)
-labels <- factor(c(rep(0, n1), rep(1, n2)))
-# Split data into training (80%) and test (20%) sets
-train_index <- sample(1:n, size = round(0.8 * n), replace = FALSE)
-train_data <- data[train_index, ]
-train_labels <- labels[train_index]
-test_data <- data[-train_index, ]
-test_labels <- labels[-train_index]
-
-########################  
-######################## 
-# Functional Bayes Classifier based the steps 
-# intruduced in the article bellow:
-#   Dai et al (2017) Optimal Bayes classifiers for functional data and density 
-# ratios_Biometrika
-######################## 
-######################## 
-# Step 1: Project data onto principal components
-pca <- prcomp(train_data, scale = TRUE)
-train_scores <- pca$x[, 1:5]  # Use first 5 principal components
-test_scores <- predict(pca, test_data)[, 1:5]
-
-# Step 2: Estimate densities for each group
-group0_scores <- train_scores[train_labels == 0, ]
-group1_scores <- train_scores[train_labels == 1, ]
-# Kernel density estimation for each group
-density0 <- density(group0_scores[, 1])  # Density for Group 0 (first PC)
-density1 <- density(group1_scores[, 1])  # Density for Group 1 (first PC)
-
-# Step 3: Classify test data using density ratios
-bayes_predictions <- sapply(test_scores[, 1], function(x) {
-  # Interpolate densities for Group 0 and Group 1
-  prob0 <- approx(density0$x, density0$y, x, rule = 2)$y  # rule = 2: extrapolate to 0 outside range
-  prob1 <- approx(density1$x, density1$y, x, rule = 2)$y  # rule = 2: extrapolate to 0 outside range
-  
-  # Handle cases where densities are 0 or NA
-  if (is.na(prob0) || is.na(prob1) || prob0 == 0 || prob1 == 0) {
-    return(ifelse(mean(train_labels == 1) > 0.5, 1, 0))  # Default to majority class
-  } else {
-    return(ifelse(prob1 / prob0 > 1, 1, 0))  # Classify based on density ratio
-  }
-})
-# Misclassification rate for Bayes classifier
-bayes_misclassification <- mean(bayes_predictions != test_labels)
-# Bayes risk for Bayes classifier
-bayes_risk <- bayes_misclassification
-
-######################## 
-######################## 
-# Simple Logistic Regression
-######################## 
-########################
-# Fit logistic regression model
-logistic_model <- glm(train_labels ~ ., data = as.data.frame(train_scores), family = binomial)
-# Predict on test set
-logistic_predictions <- predict(logistic_model, newdata = as.data.frame(test_scores), type = "response")
-logistic_predictions <- ifelse(logistic_predictions > 0.5, 1, 0)
-# Misclassification rate for logistic regression
-logistic_misclassification <- mean(logistic_predictions != test_labels)
-
-# Bayes risk for logistic regression
-logistic_risk <- logistic_misclassification
-
-# Print results
-cat("Bayes Classifier:\n")
-cat("Misclassification Rate:", bayes_misclassification, "\n")
-cat("Bayes Risk:", bayes_risk, "\n\n")
-
-cat("Logistic Regression:\n")
-cat("Misclassification Rate:", logistic_misclassification, "\n")
-cat("Bayes Risk:", logistic_risk, "\n")
-
-
-
-
-
-
-
-
-
-
-######################################
 library(fda)
 library(MASS)
 library(kernlab)
-# Function to generate simulated functional data:
-# I am also thinking about these functions:
-# n <- 200  # Total number of observations
-# p <- 50   # Number of time points
-# time <- seq(0, 1, length.out = p)  # Time points
-# # Generate two classes functionals
-# group1_mean <- sin(2 * pi * time)  # Mean function for Group 1
-# group2_mean <- cos(2 * pi * time)  # Mean function for  Group 2
-# # Simulate from Group 1
-# n1 <- n / 2
-# group1_data <- t(replicate(n1, group1_mean + rnorm(p, mean = 0, sd = 0.5)))
-# # Simulate from Group 2
-# n2 <- n / 2
-# group2_data <- t(replicate(n2, group2_mean + rnorm(p, mean = 0, sd = 0.5)))
-simulate_data <- function(n, J = 5) {
-  t <- seq(0, 1, length.out = 50)  # 50 time points
-  phi <- function(j, t) sqrt(2) * sin(j * pi * t)  # Basis functions
+wd<-paste("~/Library/CloudStorage/Box-Box/GWU/Research/",
+          "Longitudinal Review/TeXfiles/some_visualizations/",sep="")
+set.seed(pi)
+simulate_data <- function(n , J=5) {
+  t <- seq(0, 1, length.out = 20)  # 50 time points
+  phi1 <- function(t, j) sin(j * pi * t) + cos(j * pi * t/2)  # Basis functions
+  phi2 <- function(t, j) cos(j * pi * t)  # Basis functions
   
   # Generate scores from two different distributions
   X1_scores <- matrix(rnorm(n * J, mean = 0, sd = 1), n, J)
@@ -125,8 +16,8 @@ simulate_data <- function(n, J = 5) {
   # Construct functional data
   X1 <- X2 <- matrix(0, n, length(t))
   for (j in 1:J) {
-    X1 <- X1 + X1_scores[, j] %*% t(phi(j, t))
-    X2 <- X2 + X2_scores[, j] %*% t(phi(j, t))
+    X1 <- X1 + X1_scores[, j] %*% t(phi1(t,j))
+    X2 <- X2 + X2_scores[, j] %*% t(phi2(t,j))
   }
   
   # Combine into dataset
@@ -136,7 +27,7 @@ simulate_data <- function(n, J = 5) {
   return(list(data = data, labels = labels, time_points = t))
 }
 # Function to split data into training and test sets
-split_data <- function(data, labels, train_ratio = 0.8) {
+split_data <- function(data, labels, train_ratio = 0.75) {
   set.seed(42)
   n <- length(labels)
   train_idx <- sample(1:n, size = floor(train_ratio * n), replace = FALSE)
@@ -203,8 +94,8 @@ compute_logistic_regression <- function(train_data, train_labels, test_data, tes
               predicted = predicted))
 }
 # Simulate Data
-set.seed(pi)
-data_info <- simulate_data(n = 30)  # Generate 100 samples per class
+set.seed(123)
+data_info <- simulate_data(n = 20)  # Generate 100 samples per class
 split <- split_data(data_info$data, data_info$labels)
 # Compute Misclassification Rates
 bayes_classifier <- compute_fpc_classifier(split$train_data, split$train_labels, 
@@ -237,78 +128,107 @@ reshape_functional_data <- function(data_matrix, labels, set_type) {
 # Prepare training and test sets
 train_df <- reshape_functional_data(split$train_data, split$train_labels, "Train")
 test_df  <- reshape_functional_data(split$test_data, split$test_labels, "Test")
-# Merge both for visualization
-full_df <- rbind(train_df, test_df)
-full_df$predictedGr <- ifelse(full_df$ID %in% unique(test_df$))
+test_df <- test_df[order(test_df$ID),]
+test_df$Bayespred <- rep(bayes_predic,each=20)
+test_df$BayesmissCLS <- ifelse(test_df$Group==test_df$Bayespred,"Correctly Classified","Misclassified")
+test_df$logipred <- rep(logistic_predict,each=20)
+test_df$logimissCLS <- ifelse(test_df$Group==test_df$logipred,"Correctly Classified","Misclassified")
+# # Merge both for visualization
+# full_df <- rbind(train_df, test_df)
+# full_df$predictedGr <- ifelse(full_df$ID %in% unique(test_df$))
 # Define color mapping
-color_mapping <- c("0_Train" = "gray", "1_Train" = "violet", 
-                   "0_Test" = "gray", "1_Test" = "violet")
-alpha_mapping <- c("0_Train" = 0.2, "1_Train" = 0.2, 
-                   "0_Test" = 0.5, "1_Test" = 0.5)
-# Combine group & set info for aesthetics
-full_df$Group_Set <- paste(full_df$Group, full_df$Set, sep = "_")
-# ggplot visualization
-ggplot(full_df, aes(x = Time, y = Value, group = ID, color = Group_Set, alpha = Group_Set)) +
-  geom_line(size = 0.5) +
-  scale_color_manual(values = color_mapping) +
-  scale_alpha_manual(values = alpha_mapping) +
+# color_mapping <- c("0_Train" = "gray", "1_Train" = "violet", 
+#                    "0_Test" = "gray", "1_Test" = "violet")
+# alpha_mapping <- c("0_Train" = 0.2, "1_Train" = 0.2, 
+#                    "0_Test" = 0.5, "1_Test" = 0.5)
+# color_mapping <- c("Correctly Classified" = "#033C5A", "Misclassified" = "#AA9868")
+# set.seed(pi)
+Bayesplot <- ggplot(data = train_df, aes(x = Time, y = Value, group = ID)) +
+  # ggplot(data = train_df[train_df$ID %in% sample(unique(train_df$ID), 32, replace = F), ], 
+  #                   aes(x = Time, y = Value, group = ID)) +
+  geom_line(aes(color = "Training Sample"), linewidth = 0.3, alpha = 0.25) +  # Map color aesthetic
+  geom_line(data = test_df, aes(x = Time, y = Value, group = ID, color = BayesmissCLS), 
+            linewidth = 0.4, alpha = 0.3) +
+  scale_color_manual(values = c("Training Sample" = "gray", 
+                                "Correctly Classified" = "#033C5A", 
+                                "Misclassified" = "red")) +
+  labs(x = "Time", y = "(Relative) Abundance", color = "Legend") +  # Add legend title
   theme_minimal() +
-  labs(title = "Functional Data Visualization (Train vs Test Set)",
-       x = "Time", y = "Functional Value",
-       color = "Group & Set", alpha = "Group & Set")
+  theme(
+    panel.border = element_rect(color = "black", fill = NA, size = .2),
+    axis.title.x = element_text(size = 9),
+    axis.title.y = element_text(size = 9),
+    axis.text.x = element_text(size = 8),
+    axis.text.y = element_blank(),
+    panel.grid.major = element_blank(), 
+    panel.grid.minor = element_blank(),
+    plot.margin = margin(t = 0, r = 0, b = 0, l = 0, unit = "in"),
+    legend.position = "right",
+    legend.box = "vertical", 
+    legend.direction = "vertical",
+    legend.title = element_blank(),
+    legend.text = element_text(size = 8),
+    # legend.title = element_text(size = 9),
+    legend.spacing.y = unit(0, "lines")
+  ) +
+  guides(color = guide_legend(ncol = 1))
 
-##############
-##############
-##############
-
-
-library(ggplot2)
-library(reshape2)
-
-# Convert matrix data to long format for ggplot2
-reshape_functional_data <- function(data_matrix, labels, set_type, predicted_labels = NULL) {
-  df_long <- melt(data_matrix)
-  colnames(df_long) <- c("ID", "Time", "Value")
-  df_long$Group <- factor(rep(labels, times = ncol(data_matrix)))  # Assign class labels
-  df_long$Set <- set_type  # Training or Test set
-  
-  # If test set, add prediction results
-  if (!is.null(predicted_labels)) {
-    df_long$Predicted <- factor(rep(predicted_labels, times = ncol(data_matrix)))
-    df_long$Misclassified <- ifelse(df_long$Predicted != df_long$Group, "Misclassified", "Correct")
-  } else {
-    df_long$Misclassified <- "Train"
-  }
-  
-  return(df_long)
-}
-
-# Get model predictions for test set
-predicted_test_labels <- sapply(1:nrow(split$test_data), function(i) {
-  ifelse(density_ratio(predict(prcomp(split$train_data, center = TRUE, scale. = TRUE), 
-                               newdata = split$test_data)[i, 1:5], f1, f0) > 1, 1, 0)
-})
-
-# Prepare training and test datasets
-train_df <- reshape_functional_data(split$train_data, split$train_labels, "Train")
-test_df  <- reshape_functional_data(split$test_data, split$test_labels, "Test", predicted_test_labels)
-
-# Merge both for visualization
-full_df <- rbind(train_df, test_df)
-
-# Define color mapping
-color_mapping <- c("0_Train" = "gray", "1_Train" = "violet", 
-                   "0_Correct" = "gray", "1_Correct" = "violet", 
-                   "0_Misclassified" = "red", "1_Misclassified" = "red")
-
-# Combine group, set, and misclassification status for aesthetics
-full_df$Group_Status <- paste(full_df$Group, full_df$Misclassified, sep = "_")
-
-# ggplot visualization
-ggplot(full_df, aes(x = Time, y = Value, group = ID, color = Group_Status)) +
-  geom_line(size = 0.5) +
-  scale_color_manual(values = color_mapping) +
+# set.seed(pi)
+logiplot <- ggplot(data = train_df, aes(x = Time, y = Value, group = ID)) +
+  # ggplot(data = train_df[train_df$ID %in% sample(unique(train_df$ID), 32, replace = F), ], 
+  #        aes(x = Time, y = Value, group = ID)) +
+  geom_line(aes(color = "Training Sample"), linewidth = 0.3, alpha = 0.25) +  # Map color aesthetic
+  geom_line(data = test_df, aes(x = Time, y = Value, group = ID, color = logimissCLS), 
+            linewidth = 0.4, alpha = 0.3) +
+  scale_color_manual(values = c("Training Sample" = "gray", 
+                                "Correctly Classified" = "#033C5A", 
+                                "Misclassified" = "red")) +
+  labs(x = "Time", y = "(Relative) Abundance", color = "Legend") +  # Add legend title
   theme_minimal() +
-  labs(title = "Functional Data Visualization (Train vs Test) with Misclassification",
-       x = "Time", y = "Functional Value",
-       color = "Group & Classification Status")
+  theme(
+    panel.border = element_rect(color = "black", fill = NA, size = .2),
+    axis.title.x = element_text(size = 9),
+    axis.title.y = element_text(size = 9),
+    axis.text.x = element_text(size = 8),
+    axis.text.y = element_blank(),
+    panel.grid.major = element_blank(), 
+    panel.grid.minor = element_blank(),
+    plot.margin = margin(t = 0, r = 0, b = 0, l = 0, unit = "in"),
+    legend.position = "none"
+    # legend.text = element_text(size = 8),
+    # legend.title = element_text(size = 9)
+  ) +
+  guides(color = guide_legend(ncol = 1))
+library(cowplot)
+# legend <- cowplot::get_plot_component(
+#   Bayesplot #+
+#     # theme(legend.position = "right"),'guide-box-right',return_all = TRUE  # Ensure legend exists
+# )
+legend <- get_legend(Bayesplot)
+Classification <- plot_grid(
+  logiplot+theme(legend.position = "none"),# + theme(plot.margin = margin(0, .1, .1, .1)),
+  Bayesplot+theme(legend.position = "none"),
+  legend,#+
+    # theme(
+    #   # axis.title.y = element_blank(),
+    #   # axis.text.y = element_blank(),
+    #   # axis.ticks.y = element_blank(),
+    #   # legend.position = c(0.9, 0.85),
+    #   legend.text=element_text(size=8),
+    #   legend.title = element_blank()),
+  labels = c("a", "b"
+             # , "c", "d", "e" , "f", "g", "h", "i", "j",
+             # "k", "l", "m", "n", "o", "p", "q", "r", "s", "t",
+             # "u", "v","w","x","y","z"
+             ),  # Labels for each plot
+  label_size = 11,                         # Font size for labels
+  label_fontface = "bold",                 # Boldface for labels
+  ncol = 3, # Adjust layout
+  rel_widths = c(1, 1,.5) # Adjust legend width
+)
+Classification
+ggsave(
+  filename = paste(wd, "Classification.pdf", sep = ""), #device = "eps",
+  plot = Classification,
+  width = 6.2, height = 2.5, units = "in"
+)
