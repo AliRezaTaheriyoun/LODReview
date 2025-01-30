@@ -99,11 +99,11 @@ data_info <- simulate_data(n = 20)  # Generate 100 samples per class
 split <- split_data(data_info$data, data_info$labels)
 # Compute Misclassification Rates
 bayes_classifier <- compute_fpc_classifier(split$train_data, split$train_labels, 
-                                      split$test_data, split$test_labels, J = 5)
+                                           split$test_data, split$test_labels, J = 5)
 bayes_error <- bayes_classifier$misclassification_rate
 bayes_predic <- bayes_classifier$predicted
 logistic_classifier <- compute_logistic_regression(split$train_data, split$train_labels, 
-                                              split$test_data, split$test_labels)
+                                                   split$test_data, split$test_labels)
 logistic_error <- logistic_classifier$misclassification_rate
 logistic_predict <- logistic_classifier$predicted
 cat("Misclassification Rate (Bayes Classifier):", bayes_error, "\n")
@@ -167,7 +167,7 @@ Bayesplot <- ggplot(data = train_df, aes(x = Time, y = Value, group = ID)) +
     legend.box = "vertical", 
     legend.direction = "vertical",
     legend.title = element_blank(),
-    legend.text = element_text(size = 8),
+    legend.text = element_text(size = 7),
     # legend.title = element_text(size = 9),
     legend.spacing.y = unit(0, "lines")
   ) +
@@ -207,28 +207,31 @@ library(cowplot)
 legend <- get_legend(Bayesplot)
 Classification <- plot_grid(
   logiplot+theme(legend.position = "none"),# + theme(plot.margin = margin(0, .1, .1, .1)),
-  Bayesplot+theme(legend.position = "none"),
+  Bayesplot+ ylab(" ")+
+    theme(legend.position = "none", 
+          axis.text.y = element_blank(),
+          axis.title.y = element_text(size = 9)),
   legend,#+
-    # theme(
-    #   # axis.title.y = element_blank(),
-    #   # axis.text.y = element_blank(),
-    #   # axis.ticks.y = element_blank(),
-    #   # legend.position = c(0.9, 0.85),
-    #   legend.text=element_text(size=8),
-    #   legend.title = element_blank()),
+  # theme(
+  #   # axis.title.y = element_blank(),
+  #   # axis.text.y = element_blank(),
+  #   # axis.ticks.y = element_blank(),
+  #   # legend.position = c(0.9, 0.85),
+  #   legend.text=element_text(size=8),
+  #   legend.title = element_blank()),
   labels = c("a", "b"
              # , "c", "d", "e" , "f", "g", "h", "i", "j",
              # "k", "l", "m", "n", "o", "p", "q", "r", "s", "t",
              # "u", "v","w","x","y","z"
-             ),  # Labels for each plot
-  label_size = 11,                         # Font size for labels
+  ),  # Labels for each plot
+  label_size = 10,                         # Font size for labels
   label_fontface = "bold",                 # Boldface for labels
   ncol = 3, # Adjust layout
   rel_widths = c(1, 1,.5) # Adjust legend width
 )
 Classification
 ggsave(
-  filename = paste(wd, "Classification.pdf", sep = ""), #device = "eps",
+  filename = paste(wd, "Classification.eps", sep = ""), device = "eps",
   plot = Classification,
   width = 6.2, height = 2.5, units = "in"
 )
