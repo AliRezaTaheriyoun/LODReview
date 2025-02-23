@@ -410,8 +410,8 @@ library(omicsArt)
 library(cowplot)
 wd<-paste("~/Library/CloudStorage/Box-Box/GWU/Research/",
           "Longitudinal Review/TeXfiles/some_visualizations/",sep="")
-combinedplot <- function(m,n_row,n_col,linelegend=F,linexlabel=F,lineylabel=F
-                         ,heatlegend=F,heatxlabel=F,heatylabel=F){
+combinedplot <- function(m,n_row,n_col,linelegend=F,linexlabel=F,lineylabel=F,
+                         heatytick=F,heatlegend=F,heatxlabel=F,heatylabel=F){
   # Convert the matrix to a data frame for ggplot
   df <- as.data.frame(m)
   colnames(df) <- paste0("TP_", 0:(n_col - 1))  # Label columns as "TP_0", "TP_1", etc.
@@ -449,7 +449,8 @@ combinedplot <- function(m,n_row,n_col,linelegend=F,linexlabel=F,lineylabel=F
     )
   if(linexlabel){
     line_plot <- line_plot+labs(x="Time")+
-      theme(axis.title.x=element_text(size = 9))
+      theme(axis.title.x=element_text(size = 9),
+            axis.text.x = element_text(size = 6))
   }
   if(lineylabel){
     line_plot <- line_plot+labs(y="Abundance/Relative Abundance")+
@@ -460,7 +461,8 @@ combinedplot <- function(m,n_row,n_col,linelegend=F,linexlabel=F,lineylabel=F
       legend.position = "right",
       legend.key.width = unit(0.4, "in"), 
       legend.key.height = unit(0.2, "in"),
-      legend.key.size = unit(0, "lines"))
+      legend.key.size = unit(0, "lines"),
+      legend.text = element_text(size=8))
   }
   
   heatmap_data <- df_long %>%
@@ -489,19 +491,24 @@ combinedplot <- function(m,n_row,n_col,linelegend=F,linexlabel=F,lineylabel=F
     if(heatxlabel){
       heatmap <- heatmap+labs(x="Time", fill = "Abundance")+
         theme(axis.title.x=element_text(size = 9),
-              axis.text.x=element_text(size = 9))
+              axis.text.x=element_text(size = 6))
     }
   if(heatylabel){
     heatmap <- heatmap+labs(y="")+
       theme(axis.title.y=element_text(size = 9),
-            axis.text.y=element_text(size = 9))
+            axis.text.y=element_text(size = 6))
   }
   if(heatlegend){
     heatmap <- heatmap + theme(
       legend.position = "right",
       legend.key.width = unit(0.4, "in"), 
       legend.key.height = unit(0.2, "in"),
-      legend.key.size = unit(0, "lines"))
+      legend.key.size = unit(0, "lines"),
+      legend.text = element_text(size = 8))
+  }
+  if(heatytick){
+    heatmap <- heatmap + theme(
+      axis.text.y =  element_text(size = 6))
   }
     # labs(x = "Time", fill = "Abundance")
   
@@ -520,33 +527,47 @@ m2 <- matrix(c(rnorm(n_row * n_col-n_row),rnorm(n_row,2,1))+10, nrow = n_row, nc
 m3 <- matrix(c(rnorm(n_row * n_col))+10, nrow = n_row, ncol = n_col)
 m4 <- matrix(c(rnorm(n_row * n_col-n_row),rnorm(n_row,2,1))+10, nrow = n_row, ncol = n_col)
 
-combined_plot1<-combinedplot(m1,n_row,n_col,linelegend=T,linexlabel=F,lineylabel=T
-                             ,heatlegend=F,heatxlabel=T,heatylabel=T)
-combined_plot2<-combinedplot(m2,n_row,n_col,linelegend=T,linexlabel=F,lineylabel=T
-                             ,heatlegend=F,heatxlabel=T,heatylabel=T)
-combined_plot3<-combinedplot(m3,n_row,n_col,linelegend=T,linexlabel=F,lineylabel=T
-                             ,heatlegend=F,heatxlabel=T,heatylabel=T)
-combined_plot4<-combinedplot(m4,n_row,n_col,linelegend=T,linexlabel=F,lineylabel=T
-                             ,heatlegend=F,heatxlabel=T,heatylabel=T)
+combined_plot1<-combinedplot(m1,n_row,n_col,linelegend=F,linexlabel=F,lineylabel=F
+                             ,heatytick=F,heatlegend=F,heatxlabel=T,heatylabel=F)
+combined_plot2<-combinedplot(m2,n_row,n_col,linelegend=F,linexlabel=F,lineylabel=F
+                             ,heatytick=F,heatlegend=F,heatxlabel=T,heatylabel=F)
+combined_plot3<-combinedplot(m3,n_row,n_col,linelegend=F,linexlabel=F,lineylabel=F
+                             ,heatytick=F,heatlegend=F,heatxlabel=T,heatylabel=F)
+combined_plot4<-combinedplot(m4,n_row,n_col,linelegend=F,linexlabel=F,lineylabel=F
+                             ,heatytick=F,heatlegend=F,heatxlabel=T,heatylabel=F)
+tick<-combinedplot(m4,n_row,n_col,linelegend=T,linexlabel=F,lineylabel=F
+                             ,heatytick=T,heatlegend=F,heatxlabel=T,heatylabel=T)
+legend<-combinedplot(m4,n_row,n_col,linelegend=T,linexlabel=F,lineylabel=F
+                     ,heatytick=T,heatlegend=F,heatxlabel=T,heatylabel=T)
+ggsave(
+  filename = paste(wd, "legend.pdf", sep = ""),
+  plot = legend,
+  width = 7.2/4, height = 4, units = "in"
+)
+ggsave(
+  filename = paste(wd, "tick.pdf", sep = ""),
+  plot = tick,
+  width = 7.2/4, height = 1.8, units = "in"
+)
 ggsave(
   filename = paste(wd, "combined_plot1.pdf", sep = ""),
   plot = combined_plot1,
-  width = 3, height = 2, units = "in"
+  width = 7.2/7, height = 1.8, units = "in"
 )
 ggsave(
   filename = paste(wd, "combined_plot2.pdf", sep = ""),
   plot = combined_plot2,
-  width = 3, height = 2, units = "in"
+  width = 7.2/7, height = 1.8, units = "in"
 )
 ggsave(
   filename = paste(wd, "combined_plot3.pdf", sep = ""),
   plot = combined_plot3,
-  width = 3, height = 2, units = "in"
+  width = 7.2/7, height = 1.8, units = "in"
 )
 ggsave(
   filename = paste(wd, "combined_plot4.pdf", sep = ""),
   plot = combined_plot4,
-  width = 3, height = 2, units = "in"
+  width = 7.2/7, height = 1.8, units = "in"
 )
 library(cowplot)
 legend <- cowplot::get_legend(combined_plot4)
@@ -699,5 +720,5 @@ timecourse <- ggplot(df, aes(x = TimePoint, y = Abundance, group = Feature, colo
 ggsave(
   filename = paste(wd, "timecourse.pdf", sep = ""),
   plot = timecourse,
-  width = 5, height = 2, units = "in"
+  width = 4, height = 1.9, units = "in"
 )
