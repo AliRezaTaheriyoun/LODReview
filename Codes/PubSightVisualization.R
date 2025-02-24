@@ -34,17 +34,17 @@ pubmed_ggplot <- ggplot(data=pubsight, aes(fill=`Omics related field`, y=Count, 
   # Custom theme with axis lines and grid removal
   theme_minimal() +
   theme(
-    axis.title.x = element_text(size = 10),
-    axis.title.y = element_text(size = 10),
-    axis.text.x = element_text(size = 9),
-    axis.text.y = element_text(size = 9),
+    axis.title.x = element_text(size = 9),
+    axis.title.y = element_text(size = 9),
+    axis.text.x = element_text(size = 7),
+    axis.text.y = element_text(size = 7),
     panel.grid.major = element_blank(), 
     panel.grid.minor = element_blank(),
     plot.margin = margin(t = 0, r = 0, b = 0, l = 0, unit = "in"),
     # Add x and y axis lines
     axis.line = element_line(size = .5, color = "black"),  # Black axis lines
     # Legend settings
-    legend.position = c(0.15, 0.6),  # Position legend between top and middle left (x, y)
+    legend.position = c(0.2, 0.6),  # Position legend between top and middle left (x, y)
     legend.direction = "vertical",  # Vertical legend layout
     legend.title = element_blank(),  # Optionally, remove the legend title
     legend.text = element_text(size = 8),# Set legend font size to 9pt
@@ -53,7 +53,7 @@ pubmed_ggplot <- ggplot(data=pubsight, aes(fill=`Omics related field`, y=Count, 
     # plot.title = element_markdown(hjust = -0.1)  # Adjust horizontal alignment
   )
 ggsave(paste(wd,"some_visualizations/pubmed_ggplot.pdf",sep=""), #device = "eps",
-       plot = pubmed_ggplot, width = 4.5, height = 2.5, units = "in")
+       plot = pubmed_ggplot, width = 3, height = 1.5, units = "in")
 scopus <- read.table("report/Scopus_data.csv",header = T , sep = ',')
 colnames(scopus) <- c("Year" , "Count" , "Main term" , "Omics related field")
 scopus <- scopus[scopus$Year != 2024,]
