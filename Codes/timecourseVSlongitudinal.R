@@ -668,7 +668,7 @@ for (i in 1:n_row) {
   m[i, ] <- c(
     rnorm(4, 0 + rndmean[i], 1),
     rnorm(2, 4 + rndmean[i], 0.5),
-    rnorm(3, -1 + rndmean[i], 1),
+    rnorm(3, -1 + rndmean[i],1),
     rnorm(3, 2 + rndmean[i], 1),
     rnorm(1, 4 + rndmean[i], 1)
   )
@@ -702,16 +702,16 @@ timecourse <- ggplot(df, aes(x = TimePoint, y = Abundance, group = Feature, colo
   theme_minimal() +
   theme(
     panel.border = element_rect(color = "black", fill = NA, size = .2), # Add a black box around the plot
-    axis.title.x=element_text(size = 9),
-    axis.text.x=element_text(size = 9),
-    axis.title.y=element_text(size = 9),
-    axis.text.y=element_text(size = 9),
+    axis.title.x=element_blank(),
+    axis.text.x=element_text(size = 6),
+    axis.title.y=element_blank(),
+    axis.text.y=element_text(size = 6),
     axis.ticks.x=element_blank(),
     axis.ticks.y=element_blank(),
     panel.grid.major = element_blank(), 
     panel.grid.minor = element_blank(),
     plot.margin = margin(t=0, r=0, b=0, l=0,unit = "in"),  # No margin
-    legend.position = "right",
+    legend.position = "none",
     legend.key.width = unit(0.4, "in"), 
     legend.key.height = unit(0.2, "in"),
     legend.key.size = unit(0, "lines"),
@@ -720,5 +720,6 @@ timecourse <- ggplot(df, aes(x = TimePoint, y = Abundance, group = Feature, colo
 ggsave(
   filename = paste(wd, "timecourse.pdf", sep = ""),
   plot = timecourse,
-  width = 4, height = 1.9, units = "in"
+  width = 2.75, height = 1.82, units = "in"
 )
+  
