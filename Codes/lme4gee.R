@@ -167,9 +167,9 @@ imbalanced <- ggplot(imbalanced_data, aes(x = Time)) +
             color = "gray", alpha = 0.4) +
   # Mean LME predicted values
   geom_line(data = mean_predictions_imbalanced, aes(x = Time, y = Mean_LME, linetype = "Mean LME"),
-            color = "red", size = 0.8) +
+            color = "red", size = 0.6) +
   geom_line(data = mean_predictions_imbalanced, aes(x = Time, y = Mean_GEE, linetype = "Mean GEE"),
-            color = "darkblue", size = 0.8) +
+            color = "darkblue", size = 0.6) +
   # Confidence intervals for LME
   geom_rect(data = mean_predictions_imbalanced, aes(xmin = Time - 0.05, xmax = Time + 0.05,
                                                     ymin = LME_Lower, ymax = LME_Upper,
@@ -183,12 +183,12 @@ imbalanced <- ggplot(imbalanced_data, aes(x = Time)) +
   # Boxplot for LME predicted values
   geom_boxplot(aes(y = LME_Predicted, group = interaction(Time, "LME"),
                    fill = "LME Boxplot"),
-               width = 0.15, color = "red", alpha = 0.2,
+               width = 0.15, color = "red", alpha = 0.2,lwd=.2,
                position = position_nudge(x = -0.15), outlier.shape = NA) +
   # Boxplot for GAMM predicted values
   geom_boxplot(aes(y = GEE_Predicted, group = interaction(Time, "GEE"),
                    fill = "GEE Boxplot"),
-               width = 0.15, color = "blue", alpha = 0.2,
+               width = 0.15, color = "blue", alpha = 0.2,lwd=.2,
                position = position_nudge(x = 0.15), outlier.shape = NA) +
   # Smooth lines for LME and GAMM predictions
   geom_smooth(data = imbalanced_data, 
@@ -211,8 +211,16 @@ imbalanced <- ggplot(imbalanced_data, aes(x = Time)) +
   labs(#title = "Model Comparisons on Imbalanced Data with Subject-Specific Realizations",
     y = "log(Relative abundance+1)", x = "Time") +
   theme_minimal() +
-  theme_omicsEye() +
-  theme(legend.position = "right",
+  # theme_omicsEye() +
+  theme(axis.line = element_line(colour = "black", size=.25, linetype = 1),
+        legend.position = "right",
+        legend.text = element_text(size=7),
+        axis.title.x=element_text(size = 9),
+        axis.text.x=element_text(size = 6),
+        axis.title.y=element_text(size = 9),
+        axis.text.y=element_text(size = 6),
+        panel.grid.major = element_blank(), 
+        panel.grid.minor = element_blank(),
         # legend.key.width = unit(.4, "in"), 
         # legend.key.height = unit(.2, "in"),
         # legend.key.size = unit(.9, "lines"),
@@ -236,9 +244,9 @@ balanced <- ggplot(balanced_data, aes(x = Time)) +
             color = "gray", alpha = 0.4) +
   # Mean LME predicted values
   geom_line(data = mean_predictions_balanced, aes(x = Time, y = Mean_LME, linetype = "Mean LME"),
-            color = "red", size = 0.8) +
+            color = "red", size = 0.6) +
   geom_line(data = mean_predictions_balanced, aes(x = Time, y = Mean_GEE, linetype = "Mean GEE"),
-            color = "darkblue", size = 0.8) +
+            color = "darkblue", size = 0.6) +
   # Confidence intervals for LME
   geom_rect(data = mean_predictions_balanced, aes(xmin = Time - 0.05, xmax = Time + 0.05,
                                          ymin = LME_Lower, ymax = LME_Upper,
@@ -252,12 +260,12 @@ balanced <- ggplot(balanced_data, aes(x = Time)) +
   # Boxplot for LME predicted values
   geom_boxplot(aes(y = LME_Predicted, group = interaction(Time, "LME"),
                    fill = "LME Boxplot"),
-               width = 0.15, color = "red", alpha = 0.2,
+               width = 0.15, color = "red", alpha = 0.2,lwd=.2,
                position = position_nudge(x = -0.15), outlier.shape = NA) +
   # Boxplot for GAMM predicted values
   geom_boxplot(aes(y = GAMM_Predicted, group = interaction(Time, "GEE"),
                    fill = "GEE Boxplot"),
-               width = 0.15, color = "blue", alpha = 0.2,
+               width = 0.15, color = "blue", alpha = 0.2,lwd=.2,
                position = position_nudge(x = 0.15), outlier.shape = NA) +
   # Smooth lines for LME and GAMM predictions
   geom_smooth(data = balanced_data, 
@@ -280,26 +288,31 @@ balanced <- ggplot(balanced_data, aes(x = Time)) +
   labs(#title = "Model Comparisons on Imbalanced Data with Subject-Specific Realizations",
     y = "log(Relative abundance+1)", x = "Time") +
   theme_minimal() +
-  theme_omicsEye()+
-  theme(legend.position = "right",
-        legend.key.width = unit(.4, "in"), legend.key.height =unit(.2, "in"),
-        legend.key.size=unit(.9,"lines")) 
+  # theme_omicsEye()+
+  theme(axis.line = element_line(colour = "black", size=.25, linetype = 1),
+        legend.text = element_text(size=7),
+        axis.title.x=element_text(size = 9),
+        axis.text.x=element_text(size = 6),
+        axis.title.y=element_text(size = 9),
+        axis.text.y=element_text(size = 6),
+        panel.grid.major = element_blank(), 
+        panel.grid.minor = element_blank(),
+        legend.position = "right",
+        legend.key.width = unit(.4, "in"), 
+        legend.key.height =unit(.2, "in"),
+        legend.key.size=unit(0,"lines")) 
 # ggsave(filename = paste(wd,"balanced.pdf",sep=""), #device = "eps", 
 #        balanced,width = 7.2, heigh=6, units = "in")   
 balimbal <- plot_grid(
-  balanced  +theme(legend.position = "none",
-                   axis.title.x = element_text(size = 8),
-                   axis.title.y = element_text(size = 8))+
+  balanced  +theme(legend.position ="none")+
     xlab("Time")+
     ylab("log(Relative Abundance +1)")+ylim(c(-.03,-.01)),
-  imbalanced + theme(legend.position = c(.01, 0.8),
-                     legend.box = "vertical",
-                     legend.direction = "vertical",
-                     legend.text = element_text(size = 7),
-                     legend.title=element_blank(),
-                     legend.spacing.y = unit(0, "lines"),
-                     axis.title.x = element_text(size = 8),
-                     axis.title.y = element_text(size = 8))+
+  imbalanced +theme(legend.position = c(-.25,.025),
+                    legend.box = "horizontal",
+                    legend.direction = "horizontal",
+                    legend.text = element_text(size = 7),
+                    legend.title=element_blank(),
+                    legend.spacing.y = unit(0, "lines"))+
     guides(fill = guide_legend(ncol = 2), color = guide_legend(ncol = 2), 
            linetype = guide_legend(ncol = 2))+
     xlab("Time")+
@@ -322,4 +335,4 @@ balimbal <- plot_grid(
   ncol = 2                                 # Arrange the plots in 2 columns
 )
 ggsave(filename = paste(wd,"balimbal.pdf",sep=""), #device = "eps", 
-       balimbal,width = 6.2, heigh=5, units = "in") 
+       balimbal,width = 7.2, heigh=5, units = "in") 

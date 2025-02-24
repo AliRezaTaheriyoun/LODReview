@@ -158,21 +158,20 @@ Bayesplot <- ggplot(data = train_df, aes(x = Time, y = Value, group = ID)) +
     panel.border = element_rect(color = "black", fill = NA, size = .2),
     axis.title.x = element_text(size = 9),
     axis.title.y = element_text(size = 9),
-    axis.text.x = element_text(size = 8),
+    axis.text.x = element_text(size = 6),
     axis.text.y = element_blank(),
     panel.grid.major = element_blank(), 
     panel.grid.minor = element_blank(),
     plot.margin = margin(t = 0, r = 0, b = 0, l = 0, unit = "in"),
-    legend.position = "right",
-    legend.box = "vertical", 
-    legend.direction = "vertical",
-    legend.title = element_blank(),
+    legend.position = c(.1,.1),
+    legend.box = "horizontal",
+    legend.direction = "horizontal",
     legend.text = element_text(size = 7),
-    # legend.title = element_text(size = 9),
+    legend.title=element_blank(),
     legend.spacing.y = unit(0, "lines")
-  ) +
-  guides(color = guide_legend(ncol = 1))
-
+  ) #+
+  #guides(color = guide_legend(ncol = 1))
+Bayesplot
 # set.seed(pi)
 logiplot <- ggplot(data = train_df, aes(x = Time, y = Value, group = ID)) +
   # ggplot(data = train_df[train_df$ID %in% sample(unique(train_df$ID), 32, replace = F), ], 
@@ -189,7 +188,7 @@ logiplot <- ggplot(data = train_df, aes(x = Time, y = Value, group = ID)) +
     panel.border = element_rect(color = "black", fill = NA, size = .2),
     axis.title.x = element_text(size = 9),
     axis.title.y = element_text(size = 9),
-    axis.text.x = element_text(size = 8),
+    axis.text.x = element_text(size = 6),
     axis.text.y = element_blank(),
     panel.grid.major = element_blank(), 
     panel.grid.minor = element_blank(),
@@ -197,8 +196,8 @@ logiplot <- ggplot(data = train_df, aes(x = Time, y = Value, group = ID)) +
     legend.position = "none"
     # legend.text = element_text(size = 8),
     # legend.title = element_text(size = 9)
-  ) +
-  guides(color = guide_legend(ncol = 1))
+  ) #+
+  #guides(color = guide_legend(ncol = 1))
 library(cowplot)
 # legend <- cowplot::get_plot_component(
 #   Bayesplot #+
@@ -208,17 +207,14 @@ legend <- get_legend(Bayesplot)
 Classification <- plot_grid(
   logiplot+theme(legend.position = "none"),# + theme(plot.margin = margin(0, .1, .1, .1)),
   Bayesplot+ ylab(" ")+
-    theme(legend.position = "none", 
-          axis.text.y = element_blank(),
-          axis.title.y = element_text(size = 9)),
-  legend,#+
-  # theme(
-  #   # axis.title.y = element_blank(),
-  #   # axis.text.y = element_blank(),
-  #   # axis.ticks.y = element_blank(),
-  #   # legend.position = c(0.9, 0.85),
-  #   legend.text=element_text(size=8),
-  #   legend.title = element_blank()),
+    theme(legend.position = c(.47,.025),
+           legend.box = "horizontal",
+           legend.direction = "horizontal",
+           legend.text = element_text(size = 7),
+           legend.title=element_blank(),
+           legend.spacing.y = unit(0, "lines"))  +
+    guides(fill = guide_legend(nrow = 1)),  # Ensure legend items are in a single row,
+  # legend,#+
   labels = c("a", "b"
              # , "c", "d", "e" , "f", "g", "h", "i", "j",
              # "k", "l", "m", "n", "o", "p", "q", "r", "s", "t",
@@ -226,12 +222,12 @@ Classification <- plot_grid(
   ),  # Labels for each plot
   label_size = 10,                         # Font size for labels
   label_fontface = "bold",                 # Boldface for labels
-  ncol = 3, # Adjust layout
-  rel_widths = c(1, 1,.5) # Adjust legend width
+  ncol = 2, # Adjust layout
+  rel_widths = c(1, 1) # Adjust legend width
 )
 Classification
 ggsave(
-  filename = paste(wd, "Classification.eps", sep = ""), device = "eps",
+  filename = paste(wd, "Classification.pdf", sep = ""), #device = "eps",
   plot = Classification,
-  width = 6.2, height = 2.5, units = "in"
+  width = 6.5, height = 2.5, units = "in"
 )
