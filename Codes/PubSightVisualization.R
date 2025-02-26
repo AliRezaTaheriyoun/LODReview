@@ -42,7 +42,7 @@ pubmed_ggplot <- ggplot(data=pubsight, aes(fill=`Omics related field`, y=Count, 
     panel.grid.minor = element_blank(),
     plot.margin = margin(t = 0, r = 0, b = 0, l = 0, unit = "in"),
     # Add x and y axis lines
-    axis.line = element_line(size = .5, color = "black"),  # Black axis lines
+    axis.line = element_line(size = .2, color = "black"),  # Black axis lines
     # Legend settings
     legend.position = c(0.2, 0.6),  # Position legend between top and middle left (x, y)
     legend.direction = "vertical",  # Vertical legend layout
