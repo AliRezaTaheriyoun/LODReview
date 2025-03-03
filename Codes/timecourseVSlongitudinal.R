@@ -429,8 +429,8 @@ combinedplot <- function(m,n_row,n_col,linelegend=F,linexlabel=F,lineylabel=F,
   
   # Line plot (top visualization)
   line_plot <-ggplot(df_long, aes(x = TimePoint, y = Abundance, group = Feature, color = Feature)) +
-    geom_line(size = .5) +
-    geom_point(size = 1) +
+    geom_line(size = .2) +
+    geom_point(size = .5) +
     scale_color_manual(values = colors) +
     theme_minimal() +
     # theme_omicsEye() +  # Assuming this theme is defined elsewhere
@@ -692,12 +692,12 @@ colors <- rainbow(n_row)
 # Create ggplot
 timecourse <- ggplot(df, aes(x = TimePoint, y = Abundance, group = Feature, color = Feature)) +
   # geom_line(size = 1) +                            # Individual feature lines
-  geom_point(size = 1) +                           # Individual feature points
+  geom_point(size = 0.5) +                           # Individual feature points
   scale_color_manual(values = colors) +           # Custom colors
   geom_line(data = mean_values,                   # Mean line
             aes(x = TimePoint, y = MeanAbundance),
             inherit.aes = FALSE,                  # Prevent aesthetics inheritance
-            color = "red", linetype = "dashed", size = .8) +
+            color = "red", linetype = "dashed", size = .5) +
   labs(x = "Time", y = "Abundance/Relative Abundance") +
   theme_minimal() +
   theme(
@@ -718,8 +718,8 @@ timecourse <- ggplot(df, aes(x = TimePoint, y = Abundance, group = Feature, colo
     legend.title = element_blank()
   )
 ggsave(
-  filename = paste(wd, "timecourse.pdf", sep = ""),
+  filename = paste(wd, "timecourse.svg", sep = ""), device = "svg",
   plot = timecourse,
-  width = 2.75, height = 1.82, units = "in"
+  width = 2.4, height = 1.6, units = "in"
 )
   
