@@ -19,7 +19,8 @@ covmat <- function(t_i){
   for (i in 1:n_i){
     for (j in 1:n_i){
       # covmatrix[i,j]=exp(-abs(t_i[i]-t_i[j]))
-      covmatrix[i,j]=3*exp(-(t_i[i]-t_i[j])^2)
+      # covmatrix[i,j]=3*exp(-(t_i[i]-t_i[j])^2)
+      covmatrix[i,j]=(0.3)^(abs(t_i[i]-t_i[j]))
     }
   }
   return(covmatrix)
@@ -30,11 +31,9 @@ covmat <- function(t_i){
 n_subjects <- 100  # Number of subjects
 n_timepoints <- 7  # Number of timepoints
 time <- seq(0, 6, length.out = n_timepoints)
-
+set.seed(pi)
 # Assign treatment (70% males, 30% females)
 treatment <- sample(c("Case", "Control"), n_subjects, replace = TRUE, prob = c(0.7, 0.3))
-set.seed(pi)
-
 # Simulate balanced data
 complete.data <- data.frame(
   Subject = rep(1:n_subjects, each = n_timepoints),
@@ -56,6 +55,30 @@ Subject_balance <- sample(rep(1:n_subjects),20,replace = F)
 balanced_data <- complete.data[complete.data$Subject %in% Subject_balance,]
 rownames_imbalance <- sample(rownames(complete.data),nrow(balanced_data),replace = F)
 imbalanced_data <- complete.data[rownames(complete.data) %in% rownames_imbalance,]
+
+#####Another way to make imbalanced data. This method also gurantees the 
+# imbalancedness in the sample size at each time point. 
+# Define the number of observations you want at each time point
+# For example, let's assume we have 7 time points and want fewer observations at the first and last time points
+n_obs_per_time <- c(10, 30, 50, 70, 50, 30, 10)  # Adjust these numbers as needed
+
+# Initialize an empty list to store sampled rows
+sampled_rows <- list()
+
+# Sample rows for each time point
+for (i in 1:length(time)) {
+  # Extract rows corresponding to the current time point
+  time_point_data <- complete.data[complete.data$Time == time[i], ]
+  
+  # Sample the desired number of rows for this time point
+  sampled_rows[[i]] <- time_point_data[sample(nrow(time_point_data), ][1:n_obs_per_time[i], ]
+}
+
+# Combine the sampled rows into a single data frame
+imbalanced_data <- do.call(rbind, sampled_rows)
+
+#####
+
 # imSubject<-numeric(0)
 # imTime<-numeric(0)
 # imTreatment<-numeric(0)
@@ -99,7 +122,7 @@ robust_imbalanced <- rlmer(Response ~ Time + Treatment + X1 + (1 | Subject), dat
 
 # GEE model on imbalanced data
 gee_imbalanced  <- geeglm(Response ~ Time + Treatment + X1, data = imbalanced_data,
-                    id = Subject, family = gaussian, corstr = "exchangeable")
+                    id = Subject, family = gaussian, corstr = "ar1")
 
 # LME model on balanced data
 lme_balanced <- lmer(Response ~ Time + Treatment + X1 + (1 | Subject), data = balanced_data)
@@ -112,7 +135,7 @@ robust_balanced <- rlmer(Response ~ Time + Treatment + X1 + (1 | Subject), data 
 
 # GEE model on balanced data
 gee_balanced  <- geeglm(Response ~ Time + Treatment + X1, data = balanced_data,
-                          id = Subject, family = gaussian, corstr = "exchangeable")
+                          id = Subject, family = gaussian, corstr = "ar1")
 
 # Add predictions to data
 imbalanced_data <- imbalanced_data %>%
@@ -304,16 +327,16 @@ balanced <- ggplot(balanced_data, aes(x = Time)) +
         legend.box = "horizontal",  # Optional to adjust box around legend
         legend.box.margin = margin(0, 0, 0, 0),  # Optional to tweak margin if necessary
         legend.direction = "horizontal",  # Makes legend go vertically
-        legend.key.width = unit(.2, "in"), 
+        legend.key.width = unit(.3, "in"), 
         legend.key.height =unit(.1, "in"),
         legend.key.size=unit(0,"lines"),
         legend.title = element_blank()
   )+
   # Arrange legend items in two rows
   guides(
-    color = guide_legend(ncol = 2, order = 1),  # Arrange Treatment legend in 2 columns
-    fill = guide_legend(ncol = 2, order = 2),   # Arrange CIs and Boxplots legend in 2 columns
-    linetype = guide_legend(ncol = 2, order = 3) # Arrange Line Types legend in 2 columns
+    color = guide_legend(nrow = 2, order = 1),  # Arrange Treatment legend in 2 columns
+    fill = guide_legend(nrow = 2, order = 2),   # Arrange CIs and Boxplots legend in 2 columns
+    linetype = guide_legend(nrow = 2, order = 3) # Arrange Line Types legend in 2 columns
   )
 # ggsave(filename = paste(wd,"balanced.pdf",sep=""), #device = "eps", 
 #        balanced,width = 7.2, heigh=6, units = "in")   
@@ -358,4 +381,4 @@ balimbal <- plot_grid(
   rel_heights = c(1, 0.2) # Adjust the relative heights (plots take 90% of space, legend takes 10%)
 )
 ggsave(filename = paste(wd,"balimbal.pdf",sep=""), #device = "eps",
-       balimbal,width = 7.2, heigh=4, units = "in")
+       balimbal,width = 7.2, heigh=5, units = "in")
