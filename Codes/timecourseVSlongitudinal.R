@@ -13,7 +13,7 @@ library(plot.matrix)
 library(plotly)
 library(devEMF)
 out_path <- paste("/Users/alireza/Library/CloudStorage/Box-Box/GWU/Research/",
-              "Longitudinal Review/TeXfiles/",sep = "")
+                  "Longitudinal Review/TeXfiles/",sep = "")
 # n_row<-7
 # n_col<-5
 set.seed(pi)
@@ -488,11 +488,11 @@ combinedplot <- function(m,n_row,n_col,linelegend=F,linexlabel=F,lineylabel=F,
       panel.grid.minor = element_blank(),
       plot.margin = margin(t=0, r=0, b=0, l=0,unit = "in")  # No margin
     )
-    if(heatxlabel){
-      heatmap <- heatmap+labs(x="Time", fill = "Abundance")+
-        theme(axis.title.x=element_text(size = 9),
-              axis.text.x=element_text(size = 6))
-    }
+  if(heatxlabel){
+    heatmap <- heatmap+labs(x="Time", fill = "Abundance")+
+      theme(axis.title.x=element_text(size = 9),
+            axis.text.x=element_text(size = 6))
+  }
   if(heatylabel){
     heatmap <- heatmap+labs(y="")+
       theme(axis.title.y=element_text(size = 9),
@@ -510,12 +510,12 @@ combinedplot <- function(m,n_row,n_col,linelegend=F,linexlabel=F,lineylabel=F,
     heatmap <- heatmap + theme(
       axis.text.y =  element_text(size = 6))
   }
-    # labs(x = "Time", fill = "Abundance")
+  # labs(x = "Time", fill = "Abundance")
   
   # Combine the plots with no space between
   combined_plot <- line_plot / heatmap + plot_layout(heights = c(1, 2)#, 
                                                      # guides = "collect"
-                                                     )
+  )
   return(combined_plot)
 }
 
@@ -536,7 +536,7 @@ combined_plot3<-combinedplot(m3,n_row,n_col,linelegend=F,linexlabel=F,lineylabel
 combined_plot4<-combinedplot(m4,n_row,n_col,linelegend=F,linexlabel=F,lineylabel=F
                              ,heatytick=F,heatlegend=F,heatxlabel=T,heatylabel=F)
 tick<-combinedplot(m4,n_row,n_col,linelegend=T,linexlabel=F,lineylabel=F
-                             ,heatytick=T,heatlegend=F,heatxlabel=T,heatylabel=T)
+                   ,heatytick=T,heatlegend=F,heatxlabel=T,heatylabel=T)
 legend<-combinedplot(m4,n_row,n_col,linelegend=T,linexlabel=F,lineylabel=F
                      ,heatytick=T,heatlegend=F,heatxlabel=T,heatylabel=T)
 ggsave(
@@ -578,11 +578,11 @@ LOD <- plot_grid(
   combined_plot2,# + theme(plot.margin = margin(.1, .1, .1, .1)),
   combined_plot3,# + theme(plot.margin = margin(.1, .1, .1, .1)),
   combined_plot4,# + theme(plot.margin = margin(.1, .1, .1, .1)),#+ 
-    # theme(
-    #   legend.position = "right",
-    #   legend.key.width = unit(0.4, "in"), 
-    #   legend.key.height = unit(0.2, "in"),
-    #   legend.key.size = unit(0, "lines")),
+  # theme(
+  #   legend.position = "right",
+  #   legend.key.width = unit(0.4, "in"), 
+  #   legend.key.height = unit(0.2, "in"),
+  #   legend.key.size = unit(0, "lines")),
   # + theme(legend.position = c(.01, 0.8),
   #                        legend.box = "vertical",
   #                        legend.direction = "vertical",
@@ -722,4 +722,3 @@ ggsave(
   plot = timecourse,
   width = 2.4, height = 1.6, units = "in"
 )
-  

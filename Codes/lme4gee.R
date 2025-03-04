@@ -18,7 +18,8 @@ covmat <- function(t_i){
   covmatrix <- matrix(rep(0,n_i^2),n_i,n_i)
   for (i in 1:n_i){
     for (j in 1:n_i){
-      covmatrix[i,j]=exp(-abs(t_i[i]-t_i[j]))
+      # covmatrix[i,j]=exp(-abs(t_i[i]-t_i[j]))
+      covmatrix[i,j]=3*exp(-(t_i[i]-t_i[j])^2)
     }
   }
   return(covmatrix)
@@ -39,6 +40,7 @@ complete.data <- data.frame(
   Subject = rep(1:n_subjects, each = n_timepoints),
   Time = rep(time, n_subjects),
   Treatment = rep(treatment, each = n_timepoints),
+  X1 = rnorm(n_subjects * n_timepoints, mean = 0, sd = 1),
   # RandomEffect = rep(rnorm(n_subjects, 0, 1), each = n_timepoints),
   RandomEffect1 = c(t(mvrnorm(n=n_subjects,mu=rep(0,n_timepoints),Sigma = covmat(time)))),
   RandomEffect2 = c(t(mvrnorm(n=n_subjects,mu=rep(0,n_timepoints),Sigma = covmat(time)))),
@@ -46,6 +48,7 @@ complete.data <- data.frame(
 )
 complete.data$Response <- (-2 + 0.5 * complete.data$Time +
                              ifelse(complete.data$Treatment == "Case", 0.4, -0.4) +  # Add fixed effect of treatment
+                             0.3 * complete.data$X1 +  # Effect of the new fixed effect
                              complete.data$RandomEffect1+
                              complete.data$RandomEffect2*complete.data$Time +
                              complete.data$Residual)/1000-.02
@@ -86,29 +89,29 @@ imbalanced_data <- complete.data[rownames(complete.data) %in% rownames_imbalance
 
 # Fit models
 # LME model on imbalanced data
-lme_imbalanced <- lmer(Response ~ Time + Treatment + (1 | Subject), data = imbalanced_data)
+lme_imbalanced <- lmer(Response ~ Time + Treatment + X1 +(1 | Subject), data = imbalanced_data)
 
 # GAMM model on imbalanced data
-gamm_imbalanced <- gamm4(Response ~ s(Time, bs = "cs",k=3) + Treatment, random = ~(1 | Subject), data = imbalanced_data)
+gamm_imbalanced <- gamm4(Response ~ s(Time, bs = "cs",k=3) + Treatment +X1, random = ~(1 | Subject), data = imbalanced_data)
 
 # Robust LME model on imbalanced data
-robust_imbalanced <- rlmer(Response ~ Time + Treatment + (1 | Subject), data = imbalanced_data)
+robust_imbalanced <- rlmer(Response ~ Time + Treatment + X1 + (1 | Subject), data = imbalanced_data)
 
 # GEE model on imbalanced data
-gee_imbalanced  <- geeglm(Response ~ Time + Treatment, data = imbalanced_data,
+gee_imbalanced  <- geeglm(Response ~ Time + Treatment + X1, data = imbalanced_data,
                     id = Subject, family = gaussian, corstr = "exchangeable")
 
 # LME model on balanced data
-lme_balanced <- lmer(Response ~ Time + Treatment + (1 | Subject), data = balanced_data)
+lme_balanced <- lmer(Response ~ Time + Treatment + X1 + (1 | Subject), data = balanced_data)
 
 # GAMM model on balanced data
-gamm_balanced <- gamm4(Response ~ s(Time, bs = "cs",k=3) + Treatment, random = ~(1 | Subject), data = balanced_data)
+gamm_balanced <- gamm4(Response ~ s(Time, bs = "cs",k=3) + Treatment + X1, random = ~(1 | Subject), data = balanced_data)
 
 # Robust LME model on balanced data
-robust_balanced <- rlmer(Response ~ Time + Treatment + (1 | Subject), data = balanced_data)
+robust_balanced <- rlmer(Response ~ Time + Treatment + X1 + (1 | Subject), data = balanced_data)
 
 # GEE model on balanced data
-gee_balanced  <- geeglm(Response ~ Time + Treatment, data = balanced_data,
+gee_balanced  <- geeglm(Response ~ Time + Treatment + X1, data = balanced_data,
                           id = Subject, family = gaussian, corstr = "exchangeable")
 
 # Add predictions to data
@@ -164,7 +167,7 @@ imbalanced <- ggplot(imbalanced_data, aes(x = Time)) +
              alpha = 1, size = 0.7) +
   # Realization lines for subjects
   geom_line(aes(y = Response, group = Subject, linetype = "Subject Realizations"), 
-            color = "gray", alpha = 0.4) +
+            color = "gray", alpha = 0.2) +
   # Mean LME predicted values
   geom_line(data = mean_predictions_imbalanced, aes(x = Time, y = Mean_LME, linetype = "Mean LME"),
             color = "red", size = 0.6) +
@@ -241,12 +244,12 @@ balanced <- ggplot(balanced_data, aes(x = Time)) +
              alpha = 1, size = 0.7) +
   # Realization lines for subjects
   geom_line(aes(y = Response, group = Subject, linetype = "Subject Realizations"), 
-            color = "gray", alpha = 0.4) +
+            color = "gray", alpha = 0.2) +
   # Mean LME predicted values
   geom_line(data = mean_predictions_balanced, aes(x = Time, y = Mean_LME, linetype = "Mean LME"),
             color = "red", size = 0.6) +
   geom_line(data = mean_predictions_balanced, aes(x = Time, y = Mean_GEE, linetype = "Mean GEE"),
-            color = "darkblue", size = 0.6) +
+            color = "darkblue", size = 0.3) +
   # Confidence intervals for LME
   geom_rect(data = mean_predictions_balanced, aes(xmin = Time - 0.05, xmax = Time + 0.05,
                                          ymin = LME_Lower, ymax = LME_Upper,
@@ -254,16 +257,16 @@ balanced <- ggplot(balanced_data, aes(x = Time)) +
             alpha = 0.5, inherit.aes = FALSE) +
   # Confidence intervals for GAMM
   geom_rect(data = mean_predictions_balanced, aes(xmin = Time - 0.05, xmax = Time + 0.05,
-                                         ymin = GAMM_Lower, ymax = GAMM_Upper,
+                                         ymin = GEE_Lower, ymax = GEE_Upper,
                                          fill = "GEE CI"),
             alpha = 0.5, inherit.aes = FALSE) +
   # Boxplot for LME predicted values
-  geom_boxplot(aes(y = LME_Predicted, group = interaction(Time, "LME"),
+  geom_boxplot(data = balanced_data,aes(y = LME_Predicted, group = interaction(Time, "LME"),
                    fill = "LME Boxplot"),
                width = 0.15, color = "red", alpha = 0.2,lwd=.2,
                position = position_nudge(x = -0.15), outlier.shape = NA) +
   # Boxplot for GAMM predicted values
-  geom_boxplot(aes(y = GAMM_Predicted, group = interaction(Time, "GEE"),
+  geom_boxplot(data = balanced_data,aes(y = GEE_Predicted, group = interaction(Time, "GEE"),
                    fill = "GEE Boxplot"),
                width = 0.15, color = "blue", alpha = 0.2,lwd=.2,
                position = position_nudge(x = 0.15), outlier.shape = NA) +
@@ -277,10 +280,10 @@ balanced <- ggplot(balanced_data, aes(x = Time)) +
   # Define scales for color, fill, and linetype
   scale_color_manual(name = "Treatment", 
                      values = c("Control" = "#AA9868", "Case" = "#033C5A")) +
-  scale_fill_manual(name = "CIs and Boxplots",
+  scale_fill_manual(name = "CIs and Boxplots", 
                     values = c("LME CI" = "orange", "GEE CI" = "purple",
                                "LME Boxplot" = "red", "GEE Boxplot" = "blue")) +
-  scale_linetype_manual(name = "Line Types",
+  scale_linetype_manual(name = "Line Types", 
                         values = c("Subject Realizations" = "solid",
                                    "Mean LME" = "dashed", "Mean GEE" = "dashed",
                                    "LME Trend" = "dotted", "GEE Trend" = "longdash")) +
@@ -297,24 +300,37 @@ balanced <- ggplot(balanced_data, aes(x = Time)) +
         axis.text.y=element_text(size = 6),
         panel.grid.major = element_blank(), 
         panel.grid.minor = element_blank(),
-        legend.position = "right",
-        legend.key.width = unit(.4, "in"), 
-        legend.key.height =unit(.2, "in"),
-        legend.key.size=unit(0,"lines")) 
+        legend.position = "bottom",
+        legend.box = "horizontal",  # Optional to adjust box around legend
+        legend.box.margin = margin(0, 0, 0, 0),  # Optional to tweak margin if necessary
+        legend.direction = "horizontal",  # Makes legend go vertically
+        legend.key.width = unit(.2, "in"), 
+        legend.key.height =unit(.1, "in"),
+        legend.key.size=unit(0,"lines"),
+        legend.title = element_blank()
+  )+
+  # Arrange legend items in two rows
+  guides(
+    color = guide_legend(ncol = 2, order = 1),  # Arrange Treatment legend in 2 columns
+    fill = guide_legend(ncol = 2, order = 2),   # Arrange CIs and Boxplots legend in 2 columns
+    linetype = guide_legend(ncol = 2, order = 3) # Arrange Line Types legend in 2 columns
+  )
 # ggsave(filename = paste(wd,"balanced.pdf",sep=""), #device = "eps", 
 #        balanced,width = 7.2, heigh=6, units = "in")   
-balimbal <- plot_grid(
+shared_legend <- get_plot_component(balanced,'guide-box-bottom',return_all = TRUE)
+balimbal_nolegend <- plot_grid(
   balanced  +theme(legend.position ="none")+
     xlab("Time")+
     ylab("log(Relative Abundance +1)")+ylim(c(-.03,-.01)),
-  imbalanced +theme(legend.position = c(-.25,.025),
-                    legend.box = "horizontal",
-                    legend.direction = "horizontal",
-                    legend.text = element_text(size = 7),
-                    legend.title=element_blank(),
-                    legend.spacing.y = unit(0, "lines"))+
-    guides(fill = guide_legend(ncol = 2), color = guide_legend(ncol = 2), 
-           linetype = guide_legend(ncol = 2))+
+  imbalanced +theme(legend.position ="none")+
+    # theme(legend.position = c(-.2,.02),
+    #                 legend.box = "horizontal",
+    #                 legend.direction = "horizontal",
+    #                 legend.text = element_text(size = 7),
+    #                 legend.title=element_blank(),
+    #                 legend.spacing.y = unit(0, "lines"))+
+    # guides(fill = guide_legend(ncol = 2), color = guide_legend(ncol = 2), 
+    #        linetype = guide_legend(ncol = 2))+
     xlab("Time")+
     ylab("log(Relative Abundance +1)")+ylim(c(-.03,-.01))+guides(fill=guide_legend(ncol=2)),#+
     # theme(legend.position = "right",
@@ -330,9 +346,16 @@ balimbal <- plot_grid(
   labels = c("a", "b", "c", "d", "e" , "f", "g", "h", "i", "j",
              "k", "l", "m", "n", "o", "p", "q", "r", "s", "t",
              "u", "v","w","x","y","z"),  # Labels for each plot
-  label_size = 10,                         # Font size for labels
+  label_size = 11,                         # Font size for labels
   label_fontface = "bold",                 # Boldface for labels
   ncol = 2                                 # Arrange the plots in 2 columns
 )
-ggsave(filename = paste(wd,"balimbal.pdf",sep=""), #device = "eps", 
-       balimbal,width = 7.2, heigh=5, units = "in") 
+
+balimbal <- plot_grid(
+  balimbal_nolegend,
+  shared_legend,
+  ncol = 1,              # Arrange plots and legend in a single column
+  rel_heights = c(1, 0.2) # Adjust the relative heights (plots take 90% of space, legend takes 10%)
+)
+ggsave(filename = paste(wd,"balimbal.pdf",sep=""), #device = "eps",
+       balimbal,width = 7.2, heigh=4, units = "in")
