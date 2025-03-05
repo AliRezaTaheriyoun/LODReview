@@ -39,7 +39,7 @@ complete.data <- data.frame(
   Subject = rep(1:n_subjects, each = n_timepoints),
   Time = rep(time, n_subjects),
   Treatment = rep(treatment, each = n_timepoints),
-  X1 = rnorm(n_subjects * n_timepoints, mean = 0, sd = 1),
+  X1 = rnorm(n_subjects * n_timepoints, mean = 3, sd = 3),
   # RandomEffect = rep(rnorm(n_subjects, 0, 1), each = n_timepoints),
   RandomEffect1 = c(t(mvrnorm(n=n_subjects,mu=rep(0,n_timepoints),Sigma = covmat(time)))),
   RandomEffect2 = c(t(mvrnorm(n=n_subjects,mu=rep(0,n_timepoints),Sigma = covmat(time)))),
@@ -60,18 +60,19 @@ imbalanced_data <- complete.data[rownames(complete.data) %in% rownames_imbalance
 # imbalancedness in the sample size at each time point. 
 # Define the number of observations you want at each time point
 # For example, let's assume we have 7 time points and want fewer observations at the first and last time points
-n_obs_per_time <- c(10, 30, 50, 70, 50, 30, 10)  # Adjust these numbers as needed
-
+n_obs_per_time <- floor(c(25, 15, 15, 10, 10, 20, 5)*nrow(balanced_data)/100)  # Adjust these numbers as needed
+n_obs_per_time[n_timepoints] <- nrow(balanced_data)-sum(n_obs_per_time[-n_timepoints])
 # Initialize an empty list to store sampled rows
 sampled_rows <- list()
-
 # Sample rows for each time point
 for (i in 1:length(time)) {
   # Extract rows corresponding to the current time point
   time_point_data <- complete.data[complete.data$Time == time[i], ]
   
   # Sample the desired number of rows for this time point
-  sampled_rows[[i]] <- time_point_data[sample(nrow(time_point_data), ][1:n_obs_per_time[i], ]
+  # Ensure you don't sample more rows than are available
+  n_samples <- min(n_obs_per_time[i], nrow(time_point_data))
+  sampled_rows[[i]] <- time_point_data[sample(nrow(time_point_data), n_samples), ]
 }
 
 # Combine the sampled rows into a single data frame
@@ -378,7 +379,7 @@ balimbal <- plot_grid(
   balimbal_nolegend,
   shared_legend,
   ncol = 1,              # Arrange plots and legend in a single column
-  rel_heights = c(1, 0.2) # Adjust the relative heights (plots take 90% of space, legend takes 10%)
+  rel_heights = c(1, 0.08) # Adjust the relative heights (plots take 90% of space, legend takes 10%)
 )
 ggsave(filename = paste(wd,"balimbal.pdf",sep=""), #device = "eps",
-       balimbal,width = 7.2, heigh=5, units = "in")
+       balimbal,width = 7.2, heigh=4.5, units = "in")
