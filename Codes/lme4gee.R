@@ -50,7 +50,7 @@ complete.data$Response <- (-2 + 0.5 * complete.data$Time +
                              0.3 * complete.data$X1 +  # Effect of the new fixed effect
                              complete.data$RandomEffect1+
                              complete.data$RandomEffect2*complete.data$Time +
-                             complete.data$Residual)/1000-.02
+                             complete.data$Residual)/1000-.02+0.035
 Subject_balance <- sample(rep(1:n_subjects),20,replace = F)
 balanced_data <- complete.data[complete.data$Subject %in% Subject_balance,]
 rownames_imbalance <- sample(rownames(complete.data),nrow(balanced_data),replace = F)
@@ -345,7 +345,7 @@ shared_legend <- get_plot_component(balanced,'guide-box-bottom',return_all = TRU
 balimbal_nolegend <- plot_grid(
   balanced  +theme(legend.position ="none")+
     xlab("Time")+
-    ylab("log(Relative Abundance +1)")+ylim(c(-.03,-.01)),
+    ylab("log(Relative Abundance +1)")+ylim(c(.005,0.025)),
   imbalanced +theme(legend.position ="none")+
     # theme(legend.position = c(-.2,.02),
     #                 legend.box = "horizontal",
@@ -356,7 +356,7 @@ balimbal_nolegend <- plot_grid(
     # guides(fill = guide_legend(ncol = 2), color = guide_legend(ncol = 2), 
     #        linetype = guide_legend(ncol = 2))+
     xlab("Time")+
-    ylab("log(Relative Abundance +1)")+ylim(c(-.03,-.01))+guides(fill=guide_legend(ncol=2)),#+
+    ylab("log(Relative Abundance +1)")+ylim(c(0.005,0.025))+guides(fill=guide_legend(ncol=2)),#+
     # theme(legend.position = "right",
     #       # legend.key.width = unit(.4, "in"), 
     #       # legend.key.height = unit(.2, "in"),
