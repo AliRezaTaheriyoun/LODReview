@@ -335,9 +335,9 @@ balanced <- ggplot(balanced_data, aes(x = Time)) +
   )+
   # Arrange legend items in two rows
   guides(
-    color = guide_legend(nrow = 2, order = 1),  # Arrange Treatment legend in 2 columns
-    fill = guide_legend(nrow = 2, order = 2),   # Arrange CIs and Boxplots legend in 2 columns
-    linetype = guide_legend(nrow = 2, order = 3) # Arrange Line Types legend in 2 columns
+    color = guide_legend(nrow = 4, ncol=2, order = 1),  # Arrange Treatment legend in 2 columns
+    fill = guide_legend(nrow = 4, ncol=1, order = 2),   # Arrange CIs and Boxplots legend in 2 columns
+    linetype = guide_legend(nrow = 5, ncol=2, order = 2) # Arrange Line Types legend in 2 columns
   )
 # ggsave(filename = paste(wd,"balanced.pdf",sep=""), #device = "eps", 
 #        balanced,width = 7.2, heigh=6, units = "in")   
@@ -372,14 +372,14 @@ balimbal_nolegend <- plot_grid(
              "u", "v","w","x","y","z"),  # Labels for each plot
   label_size = 11,                         # Font size for labels
   label_fontface = "bold",                 # Boldface for labels
-  ncol = 2                                 # Arrange the plots in 2 columns
+  ncol = 1                                # Arrange the plots in 2 columns
 )
 
 balimbal <- plot_grid(
   balimbal_nolegend,
   shared_legend,
   ncol = 1,              # Arrange plots and legend in a single column
-  rel_heights = c(1, 0.08) # Adjust the relative heights (plots take 90% of space, legend takes 10%)
+  rel_heights = c(1, 0.1) # Adjust the relative heights (plots take 90% of space, legend takes 10%)
 )
-ggsave(filename = paste(wd,"balimbal.pdf",sep=""), #device = "eps",
-       balimbal,width = 7.2, heigh=4.5, units = "in")
+ggsave(filename = paste(wd,"balimbal1.pdf",sep=""), #device = "eps",
+       balimbal,width = 4.35, heigh=9, units = "in")
