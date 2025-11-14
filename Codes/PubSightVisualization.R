@@ -3,8 +3,8 @@ library(ggtext)
 library(viridis)
 library(hrbrthemes)
 library(devEMF)
-wd <- paste("~/Library/CloudStorage/Box-Box/GWU/Research/",
-            "Longitudinal Review/TeXfiles/",sep = "")
+wd <- paste("~/Library/CloudStorage/Box-Box/",
+            "Longitudinal_omics_review/TeXfiles/",sep = "")
 setwd(wd)
 pubsight <- read.table("report2/pubmed_data.tsv",header = T , sep = '\t')
 colnames(pubsight) <- c("Year" , "Count" , "Main term" , "Omics related field")
@@ -18,7 +18,6 @@ colnames(pubsight) <- c("Year" , "Count" , "Main term" , "Omics related field")
   # ggtitle("Growth in the longitudinal studies") +
   # theme_ipsum() +
   # xlab("")
-
 
 ##################USED in manuscript#################
 # To save in '.emf' format uncomment the following two lines and 
