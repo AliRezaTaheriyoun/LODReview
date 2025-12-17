@@ -25,7 +25,9 @@ make_upset <- function(df, cols, out_file, width=7.2, height=7.2) {
     theme_minimal(base_size = 10) +
     theme(
       panel.grid = element_blank(),
-      axis.title.x = element_blank()
+      axis.title.x = element_blank(),
+      axis.text.x = element_blank(),
+      axis.ticks.x = element_blank()
     )
   
   ggsave(out_file, p, width = width, height = height)
