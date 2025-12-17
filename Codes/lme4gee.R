@@ -372,7 +372,7 @@ balimbal_nolegend <- plot_grid(
              "u", "v","w","x","y","z"),  # Labels for each plot
   label_size = 11,                         # Font size for labels
   label_fontface = "bold",                 # Boldface for labels
-  ncol = 1                                # Arrange the plots in 2 columns
+  ncol = 2                                # Arrange the plots in 2 columns
 )
 
 balimbal <- plot_grid(
