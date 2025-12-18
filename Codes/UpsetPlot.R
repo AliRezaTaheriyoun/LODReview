@@ -10,7 +10,7 @@ data <- na.omit(data)
 binary_to_logical <- function(df, cols) {
   df %>% mutate(across(all_of(cols), ~ as.logical(.x)))
 }
-make_upset <- function(df, cols, out_file, width=7.2, height=7.2) {
+make_upset <- function(df, cols, out_file, width=3, height=3) {
   df2 <- binary_to_logical(df, cols)
   
   p <- upset(
