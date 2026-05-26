@@ -116,7 +116,7 @@ pubmed_total_by_year <- function(year) {
   as.integer(res$count)
 }
 # Run it for a range of years (e.g., 1965–2025)
-years <- c(1960,1964,1965:2025)
+years <- c(1960,1964,1965:2026)
 counts <- sapply(years, function(y) {
   message("Year: ", y)
   Sys.sleep(0.34)  # be polite to NCBI; adjust if you have an API key
@@ -127,10 +127,10 @@ pubmed_yearly_totals <- data.frame(
   pubmed_total = counts
 )
 head(pubmed_yearly_totals)
-write.table(pubmed_yearly_totals, paste0(wd,"report2/pubmed_total_records_by_year.tsv"), 
+write.table(pubmed_yearly_totals, paste0(wd,"report2026/pubmed_total_records_by_year.tsv"), 
             row.names = FALSE, sep = "\t" , col.names = T)
 
-pubsight <- read.table("report2/pubmed_data.tsv",header = T , sep = '\t')
+pubsight <- read.table("report2026/pubmed_data.tsv",header = T , sep = '\t')
 colnames(pubsight) <- c("Year" , "Count" , "Main term" , "Omics related field")
 # Ensure numeric
 pubsight$Year  <- as.integer(pubsight$Year)
@@ -159,7 +159,7 @@ pubmed_ggplot_norm <- ggplot(data = pubsight_norm,
                              aes(fill = `Omics related field`, y = NormCount, x = Year)) +
   geom_bar(position = "stack", stat = "identity") +
   scale_fill_viridis(discrete = TRUE) +
-  scale_x_continuous(breaks = seq(1965, 2025, by = 10)) +
+  scale_x_continuous(breaks = seq(1966, 2026, by = 10)) +
   scale_y_continuous(labels = scales::label_percent(accuracy = 0.01)) +
   labs(x = "Year", y = "No. Pub./Total PubMed (per year)") +
   theme_minimal() +
